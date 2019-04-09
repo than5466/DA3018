@@ -20,12 +20,18 @@ public class Calculator {
             this.myArray[this.pointer] = 0;
         }
 
-        public void is_empty() {
+        public boolean is_empty() {
             if (this.pointer != 0) {
-                System.out.println("True");
+                return true;
             } else {
-                System.out.println("False");
+                return false;
             }
+        }
+
+        public void show(){
+            this.pop();
+            System.out.println(this.value);
+            this.push(this.value);
         }
 
         public void calc() {
@@ -33,14 +39,12 @@ public class Calculator {
             double a = this.value;
             this.pop();
             double b = this.value;
-            double d = a+b;
-            this.push(d);
-            System.out.println(d);
+            this.push(a+b);
         }
     }
 
     public static void main(String[] args) {
-        stack A = new stack();
+        stack S = new stack();
         while (true) {
             Scanner myObj = new Scanner(System.in);
             System.out.println("Enter command");
@@ -50,12 +54,17 @@ public class Calculator {
 
             for (int i = 0; i < splitted.length; i++) {
                 if (splitted[i].equals("+")) {
-                    A.calc();
+                    S.calc();
 
-                } else {
+                }
+
+                else if (splitted[i].equals("=")){
+                    S.show();
+                }
+                else {
 
                     double d = Double.parseDouble(splitted[i]);
-                    A.push(d);
+                    S.push(d);
                 }
             }
         }
