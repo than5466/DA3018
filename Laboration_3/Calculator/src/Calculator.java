@@ -5,9 +5,11 @@ public class Calculator {
     public static class stack {
 
         /*
-        * We're initiating a new class named stack.
-        * When initiating an instance of this class,
-        * the variables below are defined aswell.
+        
+        * Creating a new class named stack.
+        * When initializing an instance of this class,
+        * the variables below are defined as well.
+
         */
 
         double[] stackArray = new double[10000];
@@ -91,15 +93,15 @@ public class Calculator {
         * this is the function that decides what code should run and when.
 
          */
-        stack S = new stack();                                                                  // We're initiating an instance of the class stack.
+        stack S = new stack();                                                                  // We're initializing an object of the stack class.
         while (true) {
-            Scanner input = new Scanner(System.in);                                             // Creating an object of the Scanner class.
+            Scanner input = new Scanner(System.in);                                             // Initialize an instance of the Scanner class.
             System.out.println("Enter command");
             String command = input.nextLine();                                                  // When we run this program, this is where our input is saved.
-            String[] split_input = command.split(" ");                                    // We're creating an array of strings, split on blank spaces.
+            String[] split_input = command.split(" ");                                    // Create an array of strings, split on blank spaces.
 
 
-            for (int i = 0; i < split_input.length; i++) {                                     // We're looping through every object in the array of strings.
+            for (int i = 0; i < split_input.length; i++) {                                     // Loop through every object in the array of strings.
                 if (split_input[i].equals("+")|| split_input[i].equals("-") ||                 // If the string is equal to one of the operators, the calc function is called.
                         split_input[i].equals("*") || split_input[i].equals("/")) {
                     if(S.is_empty()){
@@ -121,7 +123,7 @@ public class Calculator {
                     }
 
                 }
-                else if (split_input[i].equals("=")) {                                        // We're sending the value of the object of the top of the stack to stdout.
+                else if (split_input[i].equals("=")) {                                        // Send the value of the object of the top of the stack to stdout.
                     if (S.is_empty()){
                         System.out.println("Stack is empty");
 
