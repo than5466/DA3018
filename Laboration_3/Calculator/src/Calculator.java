@@ -11,7 +11,7 @@ public class Calculator {
 
 
         public void push(double var) {
-            if (this.pointer<full){
+            if (this.pointer<this.full){
                 this.myArray[pointer] = var;
                 this.pointer++;
                 this.value = 0;
