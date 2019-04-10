@@ -4,15 +4,15 @@ public class Calculator {
 
     public static class stack {
 
-        double[] myArray = new double[10000];
+        double[] stackArray = new double[10000];
         double value;
         int pointer = 0;
         int full = 10000;
 
 
-        public void push(double var) {
+        private void push(double var) {
             if (pointer<full){
-                myArray[pointer] = var;
+                stackArray[pointer] = var;
                 pointer++;
                 value = 0;
             }
@@ -21,34 +21,30 @@ public class Calculator {
             }
         }
 
-        public void pop() {
+        private void pop() {
             pointer--;
-            value = myArray[pointer];
-            myArray[pointer] = 0;
+            value = stackArray[pointer];
+            stackArray[pointer] = 0;
         }
 
-        public boolean is_empty() {
-            if (pointer == 0) {
-                return true;
-            } else {
-                return false;
-            }
+        private boolean is_empty() {
+            return pointer == 0;
         }
 
     }
 
-    public static double calc(double var1, double var2, String operator){
+    private static double calc(double var1, double var2, String operator){
         if (operator.equals("+")){
-            return var2 + var1;
+            return var1 + var2;
         }
         else if (operator.equals("-")){
-            return var2 - var1;
+            return var1 - var2;
         }
         else if (operator.equals("*")){
-            return var2 * var1;
+            return var1 * var2;
         }
         else {
-            return var2 / var1;
+            return var1 / var2;
         }
 
     }
@@ -56,35 +52,35 @@ public class Calculator {
     public static void main(String[] args) {
         stack S = new stack();
         while (true) {
-            Scanner myObj = new Scanner(System.in);
+            Scanner input = new Scanner(System.in);
             System.out.println("Enter command");
-            String command = myObj.nextLine();
-            String[] splitted = command.split(" ");
+            String command = input.nextLine();
+            String[] splitted_input = command.split(" ");
 
 
-            for (int i = 0; i < splitted.length; i++) {
-                if (splitted[i].equals("+")|| splitted[i].equals("-") || splitted[i].equals("*") ||
-                        splitted[i].equals("/")) {
+            for (int i = 0; i < splitted_input.length; i++) {
+                if (splitted_input[i].equals("+")|| splitted_input[i].equals("-") ||
+                        splitted_input[i].equals("*") || splitted_input[i].equals("/")) {
                     if(S.is_empty()){
                         System.out.println("Stack is empty, cannot compute");
                     }
                     else{
                         S.pop();
-                        double first = S.value;
+                        double first_op = S.value;
                         if (S.is_empty()){
-                            S.push(first);
+                            S.push(first_op);
                             System.out.println("Only one operand in stack, there needs to be atleast two.");
                         }
                         else{
                             S.pop();
-                            double second = S.value;
-                            S.push(calc(first,second,splitted[i]));
+                            double second_op = S.value;
+                            S.push(calc(second_op,first_op,splitted_input[i]));
                         }
 
                     }
 
                 }
-                else if (splitted[i].equals("=")) {
+                else if (splitted_input[i].equals("=")) {
                     if (S.is_empty()){
                         System.out.println("Stack is empty");
 
@@ -99,11 +95,11 @@ public class Calculator {
                 else {
 
                     try {
-                        double d = Double.parseDouble(splitted[i]);
+                        double d = Double.parseDouble(splitted_input[i]);
                         S.push(d);
                     }
                     catch (Exception e) {
-                        System.out.println(e);
+                        System.out.println("The only allowed symbols are numbers and a few operators. (+,-,*,/,=)");
                     }
                 }
             }
