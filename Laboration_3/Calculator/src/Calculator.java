@@ -11,10 +11,10 @@ public class Calculator {
 
 
         public void push(double var) {
-            if (this.pointer<this.full){
-                this.myArray[pointer] = var;
-                this.pointer++;
-                this.value = 0;
+            if (pointer<full){
+                myArray[pointer] = var;
+                pointer++;
+                value = 0;
             }
             else {
                 System.out.println("Stack is full!");
@@ -22,13 +22,13 @@ public class Calculator {
         }
 
         public void pop() {
-            this.pointer--;
-            this.value = this.myArray[this.pointer];
-            this.myArray[this.pointer] = 0;
+            pointer--;
+            value = myArray[pointer];
+            myArray[pointer] = 0;
         }
 
         public boolean is_empty() {
-            if (this.pointer == 0) {
+            if (pointer == 0) {
                 return true;
             } else {
                 return false;
