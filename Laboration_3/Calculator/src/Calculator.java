@@ -1,39 +1,74 @@
-import java.util.Scanner;
+import java.util.Scanner;                                                                       // Import the Scanner class.
 
 public class Calculator {
 
     public static class stack {
 
+        /*
+        * We're initiating a new class named stack.
+        * When initiating an instance of this class,
+        * the variables below are defined aswell.
+        */
+
         double[] stackArray = new double[10000];
         double value;
         int pointer = 0;
-        int full = 10000;
+        int full = stackArray.length;
+        boolean error = false;
 
 
         private void push(double var) {
+            /*
+
+            * This is a method for pushing a variable
+            * of type double onto the stack.
+            * If the stack is full, an error flag
+            * is raised.
+
+             */
             if (pointer<full){
                 stackArray[pointer] = var;
                 pointer++;
                 value = 0;
             }
             else {
-                System.out.println("Stack is full!");
+                error = true;
             }
         }
 
         private void pop() {
+
+            /*
+
+            * A method for taking out the top
+            * object from the stack.
+
+             */
             pointer--;
             value = stackArray[pointer];
             stackArray[pointer] = 0;
         }
 
         private boolean is_empty() {
+            /*
+
+            * Returns true or false,
+            * depending on whether
+            * the stack is empty or not.
+
+             */
             return pointer == 0;
         }
 
     }
 
     private static double calc(double var1, double var2, String operator){
+        /*
+
+        * Decides which of the calculation methods
+        * below that should be used on the two variables.
+
+         */
         if (operator.equals("+")){
             return var1 + var2;
         }
@@ -50,17 +85,23 @@ public class Calculator {
     }
 
     public static void main(String[] args) {
-        stack S = new stack();
+        /*
+
+        * This is the main program. Whenever we're running the file,
+        * this is the function that decides what code should run and when.
+
+         */
+        stack S = new stack();                                                                  // We're initiating an instance of the class stack.
         while (true) {
-            Scanner input = new Scanner(System.in);
+            Scanner input = new Scanner(System.in);                                             // Creating an object of the Scanner class.
             System.out.println("Enter command");
-            String command = input.nextLine();
-            String[] splitted_input = command.split(" ");
+            String command = input.nextLine();                                                  // When we run this program, this is where our input is saved.
+            String[] split_input = command.split(" ");                                    // We're creating an array of strings, split on blank spaces.
 
 
-            for (int i = 0; i < splitted_input.length; i++) {
-                if (splitted_input[i].equals("+")|| splitted_input[i].equals("-") ||
-                        splitted_input[i].equals("*") || splitted_input[i].equals("/")) {
+            for (int i = 0; i < split_input.length; i++) {                                     // We're looping through every object in the array of strings.
+                if (split_input[i].equals("+")|| split_input[i].equals("-") ||                 // If the string is equal to one of the operators, the calc function is called.
+                        split_input[i].equals("*") || split_input[i].equals("/")) {
                     if(S.is_empty()){
                         System.out.println("Stack is empty, cannot compute");
                     }
@@ -74,13 +115,13 @@ public class Calculator {
                         else{
                             S.pop();
                             double second_op = S.value;
-                            S.push(calc(second_op,first_op,splitted_input[i]));
+                            S.push(calc(second_op,first_op,split_input[i]));
                         }
 
                     }
 
                 }
-                else if (splitted_input[i].equals("=")) {
+                else if (split_input[i].equals("=")) {                                        // We're sending the value of the object of the top of the stack to stdout.
                     if (S.is_empty()){
                         System.out.println("Stack is empty");
 
@@ -94,9 +135,12 @@ public class Calculator {
 
                 else {
 
-                    try {
-                        double d = Double.parseDouble(splitted_input[i]);
+                    try {                                                                    // Convert the string to a double if possible, then push onto the stack.
+                        double d = Double.parseDouble(split_input[i]);
                         S.push(d);
+                        if (S.error){
+                            System.out.println("Stack is full. Clear it before pushing anything else");
+                        }
                     }
                     catch (Exception e) {
                         System.out.println("The only allowed symbols are numbers and a few operators. (+,-,*,/,=)");
