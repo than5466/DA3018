@@ -7,11 +7,18 @@ public class Calculator {
         double[] myArray = new double[10000];
         double value;
         int pointer = 0;
+        int full = 10000;
 
 
         public void push(double var) {
-            this.myArray[pointer] = var;
-            this.pointer++;
+            if (this.pointer<full){
+                this.myArray[pointer] = var;
+                this.pointer++;
+                this.value = 0;
+            }
+            else {
+                System.out.println("Stack is full!");
+            }
         }
 
         public void pop() {
@@ -21,26 +28,29 @@ public class Calculator {
         }
 
         public boolean is_empty() {
-            if (this.pointer != 0) {
+            if (this.pointer == 0) {
                 return true;
             } else {
                 return false;
             }
         }
 
-        public void show(){
-            this.pop();
-            System.out.println(this.value);
-            this.push(this.value);
+    }
+
+    public static double calc(double var1, double var2, String operator){
+        if (operator.equals("+")){
+            return var2 + var1;
+        }
+        else if (operator.equals("-")){
+            return var2 - var1;
+        }
+        else if (operator.equals("*")){
+            return var2 * var1;
+        }
+        else {
+            return var2 / var1;
         }
 
-        public void calc() {
-            this.pop();
-            double a = this.value;
-            this.pop();
-            double b = this.value;
-            this.push(a+b);
-        }
     }
 
     public static void main(String[] args) {
@@ -53,18 +63,48 @@ public class Calculator {
 
 
             for (int i = 0; i < splitted.length; i++) {
-                if (splitted[i].equals("+")) {
-                    S.calc();
+                if (splitted[i].equals("+")|| splitted[i].equals("-") || splitted[i].equals("*") ||
+                        splitted[i].equals("/")) {
+                    if(S.is_empty()){
+                        System.out.println("Stack is empty, cannot compute");
+                    }
+                    else{
+                        S.pop();
+                        double first = S.value;
+                        if (S.is_empty()){
+                            S.push(first);
+                            System.out.println("Only one operand in stack, there needs to be atleast two.");
+                        }
+                        else{
+                            S.pop();
+                            double second = S.value;
+                            S.push(calc(first,second,splitted[i]));
+                        }
+
+                    }
 
                 }
+                else if (splitted[i].equals("=")) {
+                    if (S.is_empty()){
+                        System.out.println("Stack is empty");
 
-                else if (splitted[i].equals("=")){
-                    S.show();
+                    }
+                    else {
+                        S.pop();
+                        System.out.println(S.value);
+                        S.push(S.value);
+                    }
                 }
+
                 else {
 
-                    double d = Double.parseDouble(splitted[i]);
-                    S.push(d);
+                    try {
+                        double d = Double.parseDouble(splitted[i]);
+                        S.push(d);
+                    }
+                    catch (Exception e) {
+                        System.out.println(e);
+                    }
                 }
             }
         }
