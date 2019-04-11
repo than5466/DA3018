@@ -7,6 +7,7 @@ public class Main {
 		/**
 		 * This function decides which of the four elementary arithmetic operations should be used.
 		 */
+		
 		switch (operator){
         case "+":
             return var1 + var2;
@@ -23,11 +24,11 @@ public class Main {
 		 /**
          * This is the main program. Whenever we run the program, this is the code that executes.
          * First an object of the Stack class is initialized. Then an endless loop is started
-         * and a Scanner class object is created every loop which asks for an input. This input is split into
+         * and a Scanner class object is created every loop which asks for an input to stdin. This input is split into
          * an array of strings, and each string is first compared to the available operators. If it's equal to any of the
-         * operators, a calculation is made. If the stack contains less than two doubles, an error message is displayed
+         * operators, a calculation is made. If the stack contains less than two variables, an error message is displayed
          * and the calculation is cancelled. If the comparison fails, an attempt to convert the string into a double is made. 
-         * If this also fails, an error message is sent to system out. 
+         * This double is then pushed onto the stack. If this also fails, an error message is sent to stdout. 
          */
         Stack S = new Stack();                                                                 
         while (true) {
@@ -43,20 +44,20 @@ public class Main {
                         System.out.println("Stack is empty, cannot compute");
                     }
                     else{
-                        double first_op = S.pop();
+                        S.pop();
                         if (S.is_empty()){
-                            S.push(first_op);
+                            S.push(S.value);
                             System.out.println("Only one operand in stack, there needs to be atleast two.");
                         }
                         else{
-                            double second_op = S.pop();
-                            S.push(calc(second_op,first_op,var));
+                            S.pop();
+                            S.push(calc(S.value,S.prev,var));
                         }
 
                     }
 
                 }
-                else if (var.equals("=")) {                                                    // Send the value of the object of the top of the stack to stdout.
+                else if (var.equals("=")) {                                                 
                     if (S.is_empty()){
                         System.out.println("Stack is empty");
 
@@ -70,10 +71,12 @@ public class Main {
 
                 else {
 
-                    try {                                                                    // Convert the string to a double if possible, then push onto the stack.
-                        double x = Double.parseDouble(var);
-                        S.push(x);
-                        if (S.error){
+                    try {                                                                    
+                        double num = Double.parseDouble(var);
+                        if (S.pointer < S.length) {
+                        	S.push(num);
+                        }
+                        else{
                             System.out.println("Stack is full. Clear it before pushing anything else");
                         }
                     }
