@@ -5,12 +5,12 @@ public class Calculator {
     public static class stack {
 
         /*
-        
-        * Creating a new class named stack.
-        * When initializing an instance of this class,
-        * the variables below are defined as well.
 
-        */
+         * Creating a new class named stack.
+         * When initializing an instance of this class,
+         * the variables below are defined as well.
+
+         */
 
         double[] stackArray = new double[10000];
         double value;
@@ -22,10 +22,10 @@ public class Calculator {
         private void push(double var) {
             /*
 
-            * This is a method for pushing a variable
-            * of type double onto the stack.
-            * If the stack is full, an error flag
-            * is raised.
+             * This is a method for pushing a variable
+             * of type double onto the stack.
+             * If the stack is full, an error flag
+             * is raised.
 
              */
             if (pointer<full){
@@ -42,8 +42,8 @@ public class Calculator {
 
             /*
 
-            * A method for taking out the top
-            * object from the stack.
+             * A method for taking out the top
+             * object from the stack.
 
              */
             pointer--;
@@ -54,9 +54,9 @@ public class Calculator {
         private boolean is_empty() {
             /*
 
-            * Returns true or false,
-            * depending on whether
-            * the stack is empty or not.
+             * Returns true or false,
+             * depending on whether
+             * the stack is empty or not.
 
              */
             return pointer == 0;
@@ -67,8 +67,8 @@ public class Calculator {
     private static double calc(double var1, double var2, String operator){
         /*
 
-        * Decides which of the calculation methods
-        * below that should be used on the two variables.
+         * Decides which of the calculation methods
+         * below that should be used on the two variables.
 
          */
 
@@ -89,8 +89,8 @@ public class Calculator {
     public static void main(String[] args) {
         /*
 
-        * This is the main program. Whenever we're running the file,
-        * this is the function that decides what code should run and when.
+         * This is the main program. Whenever we're running the file,
+         * this is the function that decides what code should run and when.
 
          */
         stack S = new stack();                                                                  // We're initializing an object of the stack class.
