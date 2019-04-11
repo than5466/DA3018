@@ -1,0 +1,42 @@
+Statisk typning - Varje variabel är förutbestämd.
+
+Deklarera attributer överst i klassens kropp.
+
+Boxed types - Primitiva typer omslutna av en klass. (ex. Integer)
+
+JAR-filer (Java ARchive):
+
+java -jar prog.jar
+
+Byggverktyg:
+Maven
+Ant
+
+
+Testning:
+
+1. Skriver kod
+2. Testar att det funkar
+
+Också
+
+1. Utöka/ändra befintligt projekt
+2. Testa att det funkar.    (Hur?)
+
+Behöver arbetssätt!
+
+Tips: Skriv tester som kod.
+
+Du kommer att återuppfinna hjulet!
+Tusentals har redan gjort detta.
+
+Lösning: Standardiserade kodmoduler för just testning.
+
+I Java:
+JUnit
+ger enhetstestning.
+
+Princip: testar metoder.
+Princip: varje rättad bugg ska införa nytt testfall.
+
+
