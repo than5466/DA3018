@@ -1,10 +1,11 @@
 package calculator;
 
 public class Stack {
-	/*
-     * Creating a new class named stack.
+	/**
+     * Create a new class named Stack.
      * When initializing an instance of this class,
-     * the variables below are defined as well.
+     * all the variables and methods below are
+     * available for that object.
      */
 
     double[] stackArray = new double[10000];
@@ -15,7 +16,7 @@ public class Stack {
 
 
     public void push(double var) {
-        /*
+        /**
          * This is a method for pushing a variable
          * of type double onto the stack.
          * If the stack is full, an error flag
@@ -24,27 +25,27 @@ public class Stack {
         if (pointer<full){
             stackArray[pointer] = var;
             pointer++;
-            value = 0;
         }
         else {
             error = true;
         }
     }
 
-    public void pop() {
+    public double pop() {
 
-        /*
+        /**
          * A method for taking out the top
          * object from the stack.
          */
         pointer--;
         value = stackArray[pointer];
         stackArray[pointer] = 0;
+        return value;
     }
 
     public boolean is_empty() {
-        /*
-         * Returns true or false,
+        /**
+         * Simply returns true or false,
          * depending on whether
          * the stack is empty or not.
          */
