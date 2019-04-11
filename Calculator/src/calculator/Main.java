@@ -23,7 +23,7 @@ public class Main {
 		 /**
          * This is the main program. Whenever we run the program, this is the code that executes.
          * First an object of the Stack class is initialized. Then an endless loop is started
-         * where and Scanner class is created every loop which asks us for an input. This input is split into
+         * and a Scanner class object is created every loop which asks for an input. This input is split into
          * an array of strings, and each string is first compared to the available operators. If it's equal to any of the
          * operators, a calculation is made. If the stack contains less than two doubles, an error message is displayed
          * and the calculation is cancelled. If the comparison fails, an attempt to convert the string into a double is made. 
