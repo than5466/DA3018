@@ -49,7 +49,6 @@ public class Main {
                             System.out.println("Only one operand in stack, there needs to be atleast two.");
                         }
                         else{
-                            S.pop();
                             double second_op = S.pop();
                             S.push(calc(second_op,first_op,var));
                         }
