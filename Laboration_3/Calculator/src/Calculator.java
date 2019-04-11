@@ -71,18 +71,18 @@ public class Calculator {
         * below that should be used on the two variables.
 
          */
-        if (operator.equals("+")){
-            return var1 + var2;
+
+        switch (operator){
+            case "+":
+                return var1 + var2;
+            case "-":
+                return var1 - var2;
+            case "*":
+                return var1 * var2;
+            case "/":
+                return var1 / var2;
         }
-        else if (operator.equals("-")){
-            return var1 - var2;
-        }
-        else if (operator.equals("*")){
-            return var1 * var2;
-        }
-        else {
-            return var1 / var2;
-        }
+
 
     }
 
@@ -101,9 +101,9 @@ public class Calculator {
             String[] split_input = command.split(" ");                                    // Create an array of strings, split on blank spaces.
 
 
-            for (int i = 0; i < split_input.length; i++) {                                     // Loop through every object in the array of strings.
-                if (split_input[i].equals("+")|| split_input[i].equals("-") ||                 // If the string is equal to one of the operators, the calc function is called.
-                        split_input[i].equals("*") || split_input[i].equals("/")) {
+            for (String var : split_input) {                                                    // Loop through every object in the array of strings.
+                if (var.equals("+")|| var.equals("-") ||                                        // If the string is equal to one of the operators, the calc function is called.
+                        var.equals("*") || var.equals("/")) {
                     if(S.is_empty()){
                         System.out.println("Stack is empty, cannot compute");
                     }
@@ -117,13 +117,13 @@ public class Calculator {
                         else{
                             S.pop();
                             double second_op = S.value;
-                            S.push(calc(second_op,first_op,split_input[i]));
+                            S.push(calc(second_op,first_op,var));
                         }
 
                     }
 
                 }
-                else if (split_input[i].equals("=")) {                                        // Send the value of the object of the top of the stack to stdout.
+                else if (var.equals("=")) {                                                    // Send the value of the object of the top of the stack to stdout.
                     if (S.is_empty()){
                         System.out.println("Stack is empty");
 
@@ -138,8 +138,8 @@ public class Calculator {
                 else {
 
                     try {                                                                    // Convert the string to a double if possible, then push onto the stack.
-                        double d = Double.parseDouble(split_input[i]);
-                        S.push(d);
+                        double x = Double.parseDouble(var);
+                        S.push(x);
                         if (S.error){
                             System.out.println("Stack is full. Clear it before pushing anything else");
                         }
