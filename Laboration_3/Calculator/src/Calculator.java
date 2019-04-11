@@ -79,7 +79,7 @@ public class Calculator {
                 return var1 - var2;
             case "*":
                 return var1 * var2;
-            case "/":
+            default:
                 return var1 / var2;
         }
 
