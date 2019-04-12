@@ -34,7 +34,7 @@ public class Main {
         while (true) {
             Scanner input = new Scanner(System.in);                                             
             System.out.println("Enter command");
-            String[] split_input = input.nextLine().split(" ");                                 
+            String[] split_input = input.nextLine().split(" "); 
 
 
             for (String var : split_input) {                                                    

@@ -10,7 +10,7 @@ public class StackTest {
 
 	@Test
 	public void testEmpty() {
-		stack2.pointer = stack2.stackArray.length;
+		stack2.push(5);
 		boolean a = stack1.is_empty();
 		boolean b = stack2.is_empty();
 		
@@ -44,6 +44,17 @@ public class StackTest {
 		assertEquals(0,B,0.0);
 		assertEquals(25,C,0.0);
 		assertEquals(1,D,0.0);
+	}
+	
+	@Test
+	public void testcalc() {
+		Calc a = new Calc();
+		a.stack.push(5);
+		a.stack.push(3);
+		a.performCalc("+");
+		a.stack.pop();
+		
+		assertEquals(8,a.stack.value,0.0);
 	}
 
 }
