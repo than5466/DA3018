@@ -3,6 +3,13 @@ package calculator;
 import java.util.Scanner;
 
 public class AlternateMain {
+	
+	/**
+	 * The difference between this and the original main method,
+	 * is that this uses an object of the Calc class, which also inherits from the Stack
+	 * class, whereas the original only inherits from the Stack class. This shortens the main program,
+	 * since we can use the methods from the Calc class, not having to define them in this function.
+	 */
 
 	public static void main(String[] args) {
 		Calc calculator = new Calc();
