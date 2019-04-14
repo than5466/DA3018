@@ -15,9 +15,9 @@ public class GraphicMain extends JFrame {
 	Calc calc = new Calc();
 
 	GraphicMain() {
-		label1 = new JLabel("Input field");
+		label1 = new JLabel("RPN input:");
 		label1.setBounds(90, 30, 150, 20);
-		label2 = new JLabel("Output field");
+		label2 = new JLabel("Answer:");
 		label2.setBounds(90, 80, 150, 20);
 		
 		text1 = new JTextField();
@@ -28,16 +28,20 @@ public class GraphicMain extends JFrame {
 		button = new JButton(new AbstractAction("Push") {
 	        @Override
 	        public void actionPerformed( ActionEvent e ) {
+	        	text2.setText("");
 	        	String[] split_input = text1.getText().split(" ");
 	        	text1.setText("");
 	        	for (String var : split_input) {
 
 					if (var.equals("+") || var.equals("-") || var.equals("*") || var.equals("/")) {
 						calc.performCalc(var);
+						if (calc.error_flag) {
+							text2.setText("Calculation cancelled.");
+						}
 
 					} else if (var.equals("=")) {
 						if (calc.stack.is_empty()) {
-							System.out.println("Stack is empty, nothing to show.");
+							text2.setText("Stack is empty.");
 						} else {
 							calc.stack.pop();
 							String output = String.valueOf(calc.stack.value);
@@ -56,6 +60,7 @@ public class GraphicMain extends JFrame {
 							}
 						} catch (Exception f) {
 							text2.setText("Symbol not allowed.");
+							break;
 						}
 					}
 

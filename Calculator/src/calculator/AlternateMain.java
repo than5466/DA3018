@@ -2,14 +2,14 @@ package calculator;
 
 import java.util.Scanner;
 
-public class Main2 {
+public class AlternateMain {
 
 	public static void main(String[] args) {
 		Calc calculator = new Calc();
 
 		while (true) {
 			Scanner input = new Scanner(System.in);
-			System.out.println("Enter RPN command");
+			System.out.print("Input: ");
 			String[] split_input = input.nextLine().split(" ");
 
 			for (String var : split_input) {
@@ -19,6 +19,10 @@ public class Main2 {
 
 				} else if (var.equals("=")) {
 					calculator.show();
+					if (calculator.error_flag) {
+						System.out.println("There need to be be atleast 2 numbers in the stack for this operation.");
+						break;
+					}
 				}
 
 				else {
@@ -31,6 +35,7 @@ public class Main2 {
 						}
 					} catch (Exception e) {
 						System.out.println("The only allowed symbols are numbers and a few operators. (+,-,*,/,=)");
+						break;
 					}
 				}
 

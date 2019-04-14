@@ -33,7 +33,7 @@ public class Main {
         Stack S = new Stack();                                                                 
         while (true) {
             Scanner input = new Scanner(System.in);                                             
-            System.out.println("Enter command");
+            System.out.print("Input: ");
             String[] split_input = input.nextLine().split(" "); 
 
 

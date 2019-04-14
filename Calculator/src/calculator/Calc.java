@@ -4,6 +4,7 @@ public class Calc {
 
 	double operand;
 	double ans;
+	boolean error_flag;
 	Stack stack = new Stack();
 
 	public void show() {
@@ -17,15 +18,16 @@ public class Calc {
 	}
 
 	public void performCalc(String operator) {
+		error_flag = false;
 		if (stack.is_empty()) {
-			System.out.println("Stack is empty!");
+			error_flag = true;
 
 		} else {
 			stack.pop();
 			operand = stack.value;
 			if (stack.is_empty()) {
 				stack.push(stack.value);
-				System.out.println("There need to be atleast 2 numbers in the stack.");
+				error_flag = true;
 			} 
 			else {
 				stack.pop();
