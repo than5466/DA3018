@@ -7,7 +7,7 @@ import java.util.*;
 
 import javax.swing.JFrame;
 
-public class GraphicMain extends JFrame {
+public class GraphicMain extends JFrame{
 	JTextField text1, text2;
 	JLabel label1, label2;
 	JButton button;
@@ -77,6 +77,7 @@ public class GraphicMain extends JFrame {
 		setLayout(null);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}
 	
 	public static void main(String[]args) {
