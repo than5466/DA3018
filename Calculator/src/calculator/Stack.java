@@ -24,7 +24,6 @@ public class Stack {
 		/**
 		 * A method for taking out the top object from the stack.
 		 */
-
 		pointer--;
 		return stackArray[pointer];
 	}
