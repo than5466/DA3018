@@ -52,9 +52,9 @@ public class StackTest {
 		a.stack.push(5);
 		a.stack.push(3);
 		a.performCalc("+");
-		a.stack.pop();
+		double b = a.stack.pop();
 		
-		assertEquals(8,a.stack.value,0.0);
+		assertEquals(8,b,0.0);
 	}
 
 }

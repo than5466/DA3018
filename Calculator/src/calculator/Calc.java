@@ -19,9 +19,9 @@ public class Calc {
 		if (stack.is_empty()) {
 			System.out.println("Stack is empty, nothing to show.");
 		} else {
-			stack.pop();
-			System.out.println(stack.value);
-			stack.push(stack.value);
+			double ans = stack.pop();
+			System.out.println(ans);
+			stack.push(ans);
 		}
 	}
 
@@ -37,26 +37,25 @@ public class Calc {
 			error_flag = true;
 
 		} else {
-			stack.pop();
-			operand = stack.value;
+			double temp1 = stack.pop();
 			if (stack.is_empty()) {
-				stack.push(stack.value);
+				stack.push(temp1);
 				error_flag = true;
 			} 
 			else {
-				stack.pop();
+				double temp2 = stack.pop();
 				switch (operator) {
 				case "+":
-					ans = stack.value + operand;
+					ans = temp2 + temp1;
 					break;
 				case "-":
-					ans = stack.value - operand;
+					ans = temp2 - temp1;
 					break;
 				case "*":
-					ans = stack.value * operand;
+					ans = temp2 * temp1;
 					break;
 				case "/":
-					ans = stack.value / operand;
+					ans = temp2 / temp1;
 					break;
 				}
 				stack.push(ans);

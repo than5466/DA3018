@@ -3,12 +3,13 @@ package calculator;
 import java.util.Scanner;
 
 public class AlternateMain {
-	
+
 	/**
-	 * The difference between this and the original main method,
-	 * is that this uses an object of the Calc class, which also inherits from the Stack
-	 * class, whereas the original only inherits from the Stack class. This shortens the main program,
-	 * since we can use the methods from the Calc class, not having to define them in this function.
+	 * The difference between this and the original main method, is that this uses
+	 * an object of the Calc class, which also inherits from the Stack class,
+	 * whereas the original only inherits from the Stack class. This shortens the
+	 * main program, since we can use the methods from the Calc class, not having to
+	 * define them in this function.
 	 */
 
 	public static void main(String[] args) {
@@ -23,13 +24,14 @@ public class AlternateMain {
 
 				if (var.equals("+") || var.equals("-") || var.equals("*") || var.equals("/")) {
 					calculator.performCalc(var);
+					if (calculator.error_flag) {
+						System.out.println("There has to be atleast two elements in the stack to perform a calculation.");
+						break;
+					}
 
 				} else if (var.equals("=")) {
 					calculator.show();
-					if (calculator.error_flag) {
-						System.out.println("There need to be be atleast 2 numbers in the stack for this operation.");
-						break;
-					}
+
 				}
 
 				else {

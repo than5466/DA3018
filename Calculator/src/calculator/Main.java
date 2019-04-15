@@ -44,14 +44,14 @@ public class Main {
                         System.out.println("Stack is empty, cannot compute");
                     }
                     else{
-                        S.pop();
+                        double temp1 = S.pop();
                         if (S.is_empty()){
-                            S.push(S.value);
+                            S.push(temp1);
                             System.out.println("Only one operand in stack, there needs to be atleast two.");
                         }
                         else{
-                            S.pop();
-                            S.push(calc(S.value,S.prev,var));
+                            double temp2 = S.pop();
+                            S.push(calc(temp2,temp1,var));
                         }
 
                     }
@@ -63,9 +63,9 @@ public class Main {
 
                     }
                     else {
-                        S.pop();
-                        System.out.println(S.value);
-                        S.push(S.value);
+                        double ans = S.pop();
+                        System.out.println(ans);
+                        S.push(ans);
                     }
                 }
 

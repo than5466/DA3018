@@ -10,8 +10,6 @@ public class Stack {
 
     double[] stackArray = new double[10000];
     int length = stackArray.length;
-    double value;
-    double prev;
     int pointer = 0;
 
 
@@ -26,16 +24,14 @@ public class Stack {
             pointer++;
     }
 
-    public void pop() {
+    public double pop() {
 
         /**
          * A method for taking out the top
          * object from the stack.
          */
-    		prev = value;
             pointer--;
-            value = stackArray[pointer];
-            stackArray[pointer] = 0;
+            return stackArray[pointer];
     }
 
     public boolean is_empty() {

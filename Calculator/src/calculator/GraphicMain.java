@@ -43,10 +43,10 @@ public class GraphicMain extends JFrame{
 						if (calc.stack.is_empty()) {
 							text2.setText("Stack is empty.");
 						} else {
-							calc.stack.pop();
-							String output = String.valueOf(calc.stack.value);
+							double temp = calc.stack.pop();
+							String output = String.valueOf(temp);
 							text2.setText(output);
-							calc.stack.push(calc.stack.value);
+							calc.stack.push(temp);
 						}
 					}
 
