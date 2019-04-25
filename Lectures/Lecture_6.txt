@@ -1,0 +1,131 @@
+Träd:
+
+	- Evolutionära träd, gran
+
+	- Evalueringsträd  (operator, operander som löv)
+
+	- Kompilatorer: Representerar kod i syntaxträd. Konverteras till exekverbara filer.
+
+	- Lagra data: Datastruktur som träd
+
+	- Explicita träd: Träd där exv. datastruktur representerar hörn och kanter.
+
+	- Implicita träd: När trädet är abstrakt, saknar tydlig representation.
+
+
+Terminologi:
+
+	- Noder/Hörn: Ritas som prickar eller cirklar
+
+	- Kanter mellan hörn. Ritas som linjer mellan noder. 
+
+	- Vissa träd är rotade.
+
+	- Hörn som delar kant är grannar.
+
+	- Löv.
+
+	- Inre hörn - de som inte är löv.
+
+
+	- I rotade träd:
+
+		- barn
+
+		- föräldrar
+
+		- syskon
+
+	- Delträd
+
+
+ex: Binärsökning i sorterad array:
+
+	- In: Array A, med n element, sorterade, och sökterm q.
+
+	- Ut: Index i s.a. A[i]=q, eller null om q ej i A.
+
+	- PseudoKod:
+
+		binary_search(A,n,q):
+			L = 0			*vänster gräns
+			R = n-1			*höger gräns
+			while L <= R:
+				mid = [(L+R)/2]
+				if A[mid] < q:
+					L = mid + 1
+				else if A[mid] > q:
+					R = mid - 1
+				else:
+					return mid
+			return null
+
+
+Sökträd för binary_search(A,100,17):
+	
+		Implicit träd, kan användas för analys av algoritmer
+
+			0,99
+		0,48		50,99
+
+
+Explicita träd:
+
+	- Binära träd: Alla hörn har högst två kanter.
+
+	- Ofta: Vänster och högerträd. (oavsett om meningsfullt)
+
+	- Representation av binära träd: se anteckningar
+
+	- Även: ternära (3 barn), tertiära (4 barn).
+
+	- Generellt: obegränsat antal barn. Lagra barn i lista.
+
+
+
+Alternativt:
+
+	- Dynamiskt allokerade träd.
+
+	- Allokerar minne för hörn, enskilt.
+
+	- Tänk: Ett objekt/hörn.
+
+
+Traversering av träd: "Gå in i trädet", ett måste för de flesta operationer på träd.
+
+	- Varianter:
+
+		- preorder: Behandla noder innan deras barn.
+		- inorder: Behandla vänster delträd, sen aktuell nod, sist höger delträd.
+		- postorder: Behandlar barn först, sist aktuell nod.
+
+
+ex: Skriv ut träds innehåll i preordertraversering.
+
+	preoder_print(v):
+		if v != null:
+			print(v.contents)
+			preorder_print(v.left)
+			preorder_print(v.right)
+
+
+
+Trädhöjd: Ett träd om ett löv har höjd 1. En nod v har höjden 1 + maxhöjd på barn.
+
+
+
+Binära sökträd:
+
+	- Binärt träd där information är lagrat efter en nyckel, och hörnen är ordnade efter nyckeln.
+	- Om y och z är barn x, så är key(y) <= key(x) <= key(z)
+	- => snabb uppslagning om trädet är "snällt", dvs någorlunda balanserat.
+	- Ett är balanserat om för alla v, höjden på v.left är högst ett 1 ifrån höjden på v.right, och båda delträden är balanserade!
+
+
+
+
+
+
+
+
