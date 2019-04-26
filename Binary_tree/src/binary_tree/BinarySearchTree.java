@@ -7,7 +7,7 @@ import java.util.Iterator;
  * Store course information in a binary search tree
  * 
  */
-public class BinarySearchTree implements Iterable{
+public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	BSTNode root = null;
 
 	public BinarySearchTree() {
@@ -22,7 +22,7 @@ public class BinarySearchTree implements Iterable{
 	 * @param courseName,    eg "Computer Science"
 	 * @param courseCredits, eg 7,5
 	 */
-	
+
 	public void insert(String courseCode, String courseName, double courseCredits) {
 		BSTNode node = new BSTNode(courseCode, courseName, courseCredits);
 		root = insert(root, node);
@@ -74,7 +74,7 @@ public class BinarySearchTree implements Iterable{
 		} else {
 			BSTNode left = node.getLeftChild();
 			BSTNode right = node.getRightChild();
-			return size(left) + 1 + size(right);
+			return 1 + size(left) + size(right);
 		}
 	}
 
@@ -99,50 +99,47 @@ public class BinarySearchTree implements Iterable{
 		}
 
 	}
-	
-	
+
 	public void remove(String courseCode) {
-		
-		root = remove(courseCode,root);
-		
-		
-		
-		
+
+		root = remove(courseCode, root);
+
 	}
-	
-	public BSTNode remove(String courseCode,BSTNode node) {
-		
+
+	public BSTNode remove(String courseCode, BSTNode node) {
+
 		if (node == null) {
 			System.out.println("Fel");
 			return null;
-		}
-		else {
+		} else {
 
 			BSTNode left = node.getLeftChild();
 			BSTNode right = node.getRightChild();
-			
+
 			int compare = node.getCourseCode().compareTo(courseCode);
 			if (compare == 0) {
 				if (right == null) {
-					return left;
-				}
-				else {
-					return insert(right,left);
 					
+					return left;
+				} else if (left == null){
+					
+					return right;
+					
+				}else {
+					return insert(right, left);
+
 				}
-				
-			}
-			else if (compare > 0) {
+
+			} else if (compare > 0) {
 				left = remove(courseCode, left);
 				node.setChildren(left, right);
 				return node;
-			}
-			else {
-				right = remove(courseCode,right);
+			} else {
+				right = remove(courseCode, right);
 				node.setChildren(left, right);
 				return node;
 			}
-			
+
 		}
 	}
 
@@ -199,15 +196,46 @@ public class BinarySearchTree implements Iterable{
 		}
 
 	}
-	
-	public Iterator Iterator() {
-		return new TreeIterator();
+
+	public Iterator<BSTNode> iterator() {
+		return new TreeIterator(root);
 	}
-	
-	private class TreeIterator {
-		public TreeIterator() {
-		    this.current = root;
-	}
+
+	private class TreeIterator implements Iterator<BSTNode> {
+		private BSTNode current;
+
+		public TreeIterator(BSTNode node) {
+			this.current = node;
+			
+		}
 		
+		
+
+		public boolean hasNext() {
+			return this.current != null;
+		}
+		
+		public void in_order(BSTNode node) {
+			BinarySearchTree A = new BinarySearchTree();
+			if (node != null) {
+				A.root = node;
+				for (BSTNode nodes: A) {
+				       System.out.println(nodes.getCourseCode());
+				   }
+			}
+		}
+
+		public BSTNode next() {
+			if (this.hasNext()) {
+				BSTNode res = this.current;
+				in_order(current.getLeftChild());
+				this.current = this.current.getRightChild();
+				return res;
+				
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
 	}
+
 }
