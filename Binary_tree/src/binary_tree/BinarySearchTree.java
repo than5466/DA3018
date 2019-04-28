@@ -87,8 +87,12 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	}
 
 	public BSTNode find(String courseCode, BSTNode node) {
-		String current = node.getCourseCode();
-		int compare = current.compareTo(courseCode);
+		if (node == null) {
+			System.out.println("Icke då!");
+			return null;
+		}
+		String currentCode = node.getCourseCode();
+		int compare = currentCode.compareTo(courseCode);
 
 		if (compare == 0) {
 			return node;
@@ -109,7 +113,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	public BSTNode remove(String courseCode, BSTNode node) {
 
 		if (node == null) {
-			System.out.println("Fel");
+			System.out.println("Nej du!");
 			return null;
 		} else {
 
@@ -119,13 +123,13 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 			int compare = node.getCourseCode().compareTo(courseCode);
 			if (compare == 0) {
 				if (right == null) {
-					
+
 					return left;
-				} else if (left == null){
-					
+				} else if (left == null) {
+
 					return right;
-					
-				}else {
+
+				} else {
 					return insert(right, left);
 
 				}
@@ -203,39 +207,106 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 	private class TreeIterator implements Iterator<BSTNode> {
 		private BSTNode current;
+		private BSTNode save;
+		private String last;
+		private String maxRight;
 
 		public TreeIterator(BSTNode node) {
 			this.current = node;
-			
+			this.save = node;
+			this.last = null;
+			this.maxRight = RightCourseCode(this.current);
+
 		}
-		
-		
+
+		public String RightCourseCode(BSTNode node) {
+			;
+			while (node.getRightChild() != null) {
+				node = node.getRightChild();
+			}
+			return node.getCourseCode();
+		}
 
 		public boolean hasNext() {
-			return this.current != null;
-		}
-		
-		public void in_order(BSTNode node) {
-			BinarySearchTree A = new BinarySearchTree();
-			if (node != null) {
-				A.root = node;
-				for (BSTNode nodes: A) {
-				       System.out.println(nodes.getCourseCode());
-				   }
-			}
+			return this.last != this.maxRight;
 		}
 
 		public BSTNode next() {
 			if (this.hasNext()) {
-				BSTNode res = this.current;
-				in_order(current.getLeftChild());
-				this.current = this.current.getRightChild();
-				return res;
-				
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
 
+				this.current = this.save;
+				this.current = nextInOrder();
+
+				this.last = this.current.getCourseCode();
+				return this.current;
+				
+			}
+			else { throw new NoSuchElementException();
+			
+			}
+
+		}
+
+		public BSTNode nextInOrder() {
+			if (this.last == null) {
+				while (this.current.getLeftChild() != null) {
+					this.current = this.current.getLeftChild();
+				}
+				return this.current;
+
+			}
+			int compare = this.current.getCourseCode().compareTo(this.last);
+			String saved = null;
+			while (compare > 0) {
+
+				saved = this.current.getCourseCode();
+				this.current = this.current.getLeftChild();
+
+				compare = this.current.getCourseCode().compareTo(this.last);
+
+			}
+			while (compare <= 0 && this.current.getRightChild() != null) {
+				this.current = this.current.getRightChild();
+				compare = this.current.getCourseCode().compareTo(this.last);
+				if (compare > 0) {
+					saved = this.current.getCourseCode();
+				}
+			}
+			while (compare > 0 && this.current.getLeftChild() != null) {
+				this.current = this.current.getLeftChild();
+				compare = this.current.getCourseCode().compareTo(this.last);
+				if (compare > 0) {
+					saved = this.current.getCourseCode();
+				}
+
+			}
+			
+			
+
+			return find(saved, this.save);
+		}
+		/*
+		 * 
+		 * public boolean hasNext() { return this.current != null; }
+		 * 
+		 * public void in_order(BSTNode node) { BinarySearchTree A = new
+		 * BinarySearchTree(); if (node != null) { A.root = node; for (BSTNode nodes :
+		 * A) { System.out.println(nodes.getCourseCode()); } } }
+		 * 
+		 * public BSTNode next() { if (this.hasNext()) { if (this.last == null) {
+		 * BSTNode res = this.current; this.current = this.current.getRightChild();
+		 * this.last = BSTNode
+		 * 
+		 * return res; }
+		 * 
+		 * BSTNode res = this.current; this.current = this.current.getRightChild();
+		 * 
+		 * return res;
+		 * 
+		 * } else { throw new NoSuchElementException(); }
+		 * 
+		 * }
+		 */
+
+	}
 }

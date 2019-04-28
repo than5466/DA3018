@@ -2,7 +2,10 @@ package binary_tree;
 
 import java.io.*;
 
-public class CourseInfo {
+public class CourseInfo{
+	
+	
+	
 	/*
 
 	public static BufferedReader reader(String str) throws FileNotFoundException {
