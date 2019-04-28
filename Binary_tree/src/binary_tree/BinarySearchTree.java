@@ -210,12 +210,16 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		private BSTNode save;
 		private String last;
 		private String maxRight;
+		private boolean go;
+		private String saved;
+		private int compare;
 
 		public TreeIterator(BSTNode node) {
 			this.current = node;
 			this.save = node;
 			this.last = null;
 			this.maxRight = RightCourseCode(this.current);
+			this.saved = null;
 
 		}
 
@@ -239,13 +243,38 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 				this.last = this.current.getCourseCode();
 				return this.current;
-				
-			}
-			else { throw new NoSuchElementException();
-			
+
+			} else {
+				throw new NoSuchElementException();
+
 			}
 
 		}
+		/*
+		 * 
+		 * public BSTNode nextInOrder() { if (this.last == null) { while
+		 * (this.current.getLeftChild() != null) { this.current =
+		 * this.current.getLeftChild(); } return this.current;
+		 * 
+		 * } int compare = this.current.getCourseCode().compareTo(this.last); String
+		 * saved = null; while (compare > 0) {
+		 * 
+		 * saved = this.current.getCourseCode(); this.current =
+		 * this.current.getLeftChild();
+		 * 
+		 * compare = this.current.getCourseCode().compareTo(this.last);
+		 * 
+		 * } while (compare <= 0 && this.current.getRightChild() != null) { this.current
+		 * = this.current.getRightChild(); compare =
+		 * this.current.getCourseCode().compareTo(this.last); if (compare > 0) { saved =
+		 * this.current.getCourseCode(); } } while (compare > 0 &&
+		 * this.current.getLeftChild() != null) { this.current =
+		 * this.current.getLeftChild(); compare =
+		 * this.current.getCourseCode().compareTo(this.last); if (compare > 0) { saved =
+		 * this.current.getCourseCode(); }
+		 * 
+		 * }
+		 */
 
 		public BSTNode nextInOrder() {
 			if (this.last == null) {
@@ -255,58 +284,54 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 				return this.current;
 
 			}
-			int compare = this.current.getCourseCode().compareTo(this.last);
-			String saved = null;
-			while (compare > 0) {
+			this.go = true;
+			this.compare = this.current.getCourseCode().compareTo(this.last);
+			this.saved = this.current.getCourseCode();
+			while (this.go) {
+				if (this.compare > 0) {
+					this.current = goLeft();
+					this.compare = this.current.getCourseCode().compareTo(this.last);
+					if (this.compare > 0) {
+						this.go = false;
+					}
+				} else {
+					this.current = goRight();
+					this.compare = this.current.getCourseCode().compareTo(this.last);
+					if (this.compare <= 0) {
+						this.go = false;
+					}
 
-				saved = this.current.getCourseCode();
-				this.current = this.current.getLeftChild();
-
-				compare = this.current.getCourseCode().compareTo(this.last);
-
-			}
-			while (compare <= 0 && this.current.getRightChild() != null) {
-				this.current = this.current.getRightChild();
-				compare = this.current.getCourseCode().compareTo(this.last);
-				if (compare > 0) {
-					saved = this.current.getCourseCode();
+					
 				}
 			}
-			while (compare > 0 && this.current.getLeftChild() != null) {
-				this.current = this.current.getLeftChild();
-				compare = this.current.getCourseCode().compareTo(this.last);
-				if (compare > 0) {
-					saved = this.current.getCourseCode();
-				}
-
-			}
-			
-			
 
 			return find(saved, this.save);
 		}
-		/*
-		 * 
-		 * public boolean hasNext() { return this.current != null; }
-		 * 
-		 * public void in_order(BSTNode node) { BinarySearchTree A = new
-		 * BinarySearchTree(); if (node != null) { A.root = node; for (BSTNode nodes :
-		 * A) { System.out.println(nodes.getCourseCode()); } } }
-		 * 
-		 * public BSTNode next() { if (this.hasNext()) { if (this.last == null) {
-		 * BSTNode res = this.current; this.current = this.current.getRightChild();
-		 * this.last = BSTNode
-		 * 
-		 * return res; }
-		 * 
-		 * BSTNode res = this.current; this.current = this.current.getRightChild();
-		 * 
-		 * return res;
-		 * 
-		 * } else { throw new NoSuchElementException(); }
-		 * 
-		 * }
-		 */
 
+		public BSTNode goLeft() {
+			while (this.compare > 0 && this.current.getLeftChild() != null) {
+				this.current = this.current.getLeftChild();
+				this.compare = this.current.getCourseCode().compareTo(this.last);
+				if (this.compare > 0) {
+					this.saved = this.current.getCourseCode();
+				}
+
+			}
+			return this.current;
+
+		}
+
+		public BSTNode goRight() {
+			while (this.compare <= 0 && this.current.getRightChild() != null) {
+				this.current = this.current.getRightChild();
+				this.compare = this.current.getCourseCode().compareTo(this.last);
+				if (this.compare > 0) {
+					this.saved = this.current.getCourseCode();
+				}
+			}
+			return this.current;
+
+		}
 	}
+
 }
