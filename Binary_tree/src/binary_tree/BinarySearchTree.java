@@ -3,8 +3,6 @@ package binary_tree;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-import binary_tree.BinarySearchTree.BSTNode;
-
 import java.util.Iterator;
 
 /**
@@ -426,6 +424,12 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		 * 
 		 * }
 		 */
+
+		/**
+		 * hasNext() returns true unless the stack is empty, as well as the current node
+		 * is null.
+		 */
+
 		public boolean hasNext() {
 			if (!stack.isEmpty() || this.current != null) {
 				return true;
@@ -434,22 +438,57 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 			}
 		}
 
+		/**
+		 * Pre order traversal of the binary tree with the help of a stack. Each
+		 * iteration the current nodes children (if it has any) gets pushed to the
+		 * stack, with the right child being pushed first. The current node is then
+		 * returned, and the next iteration current node is set to the top object on the
+		 * stack.
+		 * 
+		 */
+
+		/*
+		 * public BSTNode next() { if (hasNext()) { if (this.current == null) {
+		 * this.current = stack.pop(); } if (this.current.getRightChild() != null) {
+		 * this.stack.push(this.current.getRightChild()); } if
+		 * (this.current.getLeftChild() != null) {
+		 * this.stack.push(this.current.getLeftChild()); }
+		 * 
+		 * temp = this.current;
+		 * 
+		 * this.current = null; return temp;
+		 * 
+		 * } else { throw new NoSuchElementException(); } } } }
+		 */
+		
+		/*
+		 * In-order traversal. 
+		 * 
+		 */
+
 		public BSTNode next() {
 			if (hasNext()) {
 				if (this.current == null) {
-					this.current = stack.pop();
-				}
-				if (this.current.getRightChild() != null) {
-					this.stack.push(this.current.getRightChild());
-				}
-				if (this.current.getLeftChild() != null) {
-					this.stack.push(this.current.getLeftChild());
-				}
+					this.current = this.stack.pop();
+					this.temp = this.current;
+					this.current = this.temp.getRightChild();
+					if (this.current != null) {
 
-				temp = this.current;
+						this.stack.push(this.current);
+						this.current = this.current.getLeftChild();
 
-				this.current = null;
-				return temp;
+					}
+					return this.temp;
+				} else {
+					while (this.current.getLeftChild() != null) {
+						this.stack.push(this.current);
+						this.current = this.current.getLeftChild();
+
+					}
+					this.temp = this.current;
+					this.current = null;
+					return this.temp;
+				}
 
 			} else {
 				throw new NoSuchElementException();
