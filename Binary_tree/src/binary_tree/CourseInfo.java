@@ -25,7 +25,7 @@ public class CourseInfo {
 			BufferedReader f = null;
 
 			f = reader(args[0]);
-			
+
 			if (f == null) {
 				System.out.println("A file with this name does not exist!");
 				return;
@@ -50,27 +50,27 @@ public class CourseInfo {
 
 					System.out.printf("%-8s", g.getCourseCode());
 					System.out.printf("%-20s", g.getCourseName());
-					System.out.printf("%6s%n",g.getCredits());
+					System.out.printf("%6s%n", g.getCredits());
 				}
 
 			} else {
 				for (BinarySearchTree.BSTNode node : BST) {
 					System.out.printf("%-8s", node.getCourseCode());
 					System.out.printf("%-20s", node.getCourseName());
-					System.out.printf("%6s%n",node.getCredits());
+					System.out.printf("%6s%n", node.getCredits());
 					Sum += node.getCredits();
 				}
 				System.out.printf("%-28s", "Summa: ");
-				System.out.printf("%6s%n",Sum);
+				System.out.printf("%6s%n", Sum);
 			}
-		}
-		else {
+		} else {
 			System.out.println("You must specify a filename, and at most one course code to search for!");
 		}
 	}
 }
 
 /*
+ * 
  * public static void main(String[] args) {
  * 
  * BinarySearchTree courses = new BinarySearchTree();
@@ -107,4 +107,5 @@ public class CourseInfo {
  * }
  * 
  * }
+ * 
  */

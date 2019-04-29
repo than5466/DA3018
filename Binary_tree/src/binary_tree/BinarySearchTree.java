@@ -1,6 +1,10 @@
 package binary_tree;
 
 import java.util.NoSuchElementException;
+import java.util.Stack;
+
+import binary_tree.BinarySearchTree.BSTNode;
+
 import java.util.Iterator;
 
 /**
@@ -28,8 +32,8 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	}
 
 	/**
-	 * Insert 'node' into the tree pointed at by 'root'. If a node with the same code already exist,
-	 * overwrite it with the new information.
+	 * Insert 'node' into the tree pointed at by 'root'. If a node with the same
+	 * code already exist, overwrite it with the new information.
 	 * 
 	 * @returns The node that should be the root of this subtree.
 	 * @param root
@@ -59,21 +63,22 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 	/**
 	 * size: Count the number of nodes in the search tree
-	 * @return
-	 * calls the size function defined under this one with the parameter root.
+	 * 
+	 * @return calls the size function defined under this one with the parameter
+	 *         root.
 	 */
 
 	public int size() {
 
 		return size(root);
 	}
-	
+
 	/**
 	 * 
 	 * @param node
-	 * @return
-	 * returns 0 if the current node is null, otherwise returns 
-	 * 1 + recursively the remove function on the right and left node node, respectively.
+	 * @return returns 0 if the current node is null, otherwise returns 1 +
+	 *         recursively the remove function on the right and left node node,
+	 *         respectively.
 	 */
 
 	public int size(BSTNode node) {
@@ -93,17 +98,19 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	public BSTNode find(String courseCode) {
 		return find(courseCode, root);
 	}
-	
+
 	/**
-	 * A comparison is made between the current node and the one searched for.
-	 * If the current node is of higher value than the
-	 * one searched for, recursively call this function but with the left child of the current node, otherwise
+	 * A comparison is made between the current node and the one searched for. If
+	 * the current node is of higher value than the one searched for, recursively
+	 * call this function but with the left child of the current node, otherwise
 	 * recursively call the function with the right child.
+	 * 
 	 * @param courseCode
 	 * @param node
 	 * @return
 	 * 
-	 * If they're the same, return the current node. If it doesn't exist, return null.
+	 *         If they're the same, return the current node. If it doesn't exist,
+	 *         return null.
 	 */
 
 	public BSTNode find(String courseCode, BSTNode node) {
@@ -122,9 +129,10 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		}
 
 	}
-	
+
 	/**
 	 * remove: removes the current node searched for.
+	 * 
 	 * @param courseCode
 	 */
 
@@ -133,20 +141,22 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		root = remove(courseCode, root);
 
 	}
-	
+
 	/**
 	 * 
 	 * compares the course code of the node that should be deleted with the current.
-	 * If the current node has a smaller value, recursively set the current nodes right child
-	 * to the remove function applied to the right child, and do nothing with the left, and 
-	 * respectively call the remove on the left child if it has a higher value. 
+	 * If the current node has a smaller value, recursively set the current nodes
+	 * right child to the remove function applied to the right child, and do nothing
+	 * with the left, and respectively call the remove on the left child if it has a
+	 * higher value.
+	 * 
 	 * @param courseCode
 	 * @param node
-	 * @return
-	 * return null if the node doesn't exist in the tree. Otherwise, if the searched for node doesn't
-	 * have a right child, return the left and if no left child, return right.
-	 * If however the node has a right, as well as a left child, the left node is inserted into
-	 * the right and then returned.
+	 * @return return null if the node doesn't exist in the tree. Otherwise, if the
+	 *         searched for node doesn't have a right child, return the left and if
+	 *         no left child, return right. If however the node has a right, as well
+	 *         as a left child, the left node is inserted into the right and then
+	 *         returned.
 	 */
 
 	public BSTNode remove(String courseCode, BSTNode node) {
@@ -256,12 +266,14 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 	private class BSTIterator implements Iterator<BSTNode> {
 		private BSTNode current;
-		private BSTNode root;
-		private String previousCode;
-		private String finalCode;
-		private boolean go;
+		private BSTNode temp;
+		// private BSTNode root;
+		// private String previousCode;
+		// private String finalCode;
+		// private boolean go;
 		private String savedCode;
-		private int compare;
+		// private int compare;
+		private Stack<BSTNode> stack;
 
 		/**
 		 * 
@@ -270,10 +282,11 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 		public BSTIterator(BSTNode node) {
 			this.current = node;
-			this.root = node;
-			this.previousCode = null;
-			this.finalCode = FinalCode(this.current);
+			// this.root = node;
+			// this.previousCode = null;
+			// this.finalCode = FinalCode(this.current);
 			this.savedCode = null;
+			this.stack = new Stack<BSTNode>();
 
 		}
 
@@ -284,21 +297,24 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		 *         code.
 		 */
 
-		public String FinalCode(BSTNode node) {
-			while (node.getRightChild() != null) {
-				node = node.getRightChild();
-			}
-			return node.getCourseCode();
-		}
+		/*
+		 * 
+		 * 
+		 * public String FinalCode(BSTNode node) { while (node.getRightChild() != null)
+		 * { node = node.getRightChild(); } return node.getCourseCode(); }
+		 * 
+		 */
 
 		/**
 		 * returns false if the course code of the node which next() returned previously
 		 * is the same as the highest valued one, true otherwise.
 		 */
 
-		public boolean hasNext() {
-			return this.previousCode != this.finalCode;
-		}
+		/*
+		 * 
+		 * public boolean hasNext() { return this.previousCode != this.finalCode; }
+		 * 
+		 */
 
 		/**
 		 * returns the course code which the method nextInOrder decides. also updates
@@ -309,21 +325,21 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		 * nextInOrder method.
 		 */
 
-		public BSTNode next() {
-			if (this.hasNext()) {
-
-				this.current = this.root;
-				this.current = nextInOrder();
-
-				this.previousCode = this.current.getCourseCode();
-				return this.current;
-
-			} else {
-				throw new NoSuchElementException();
-
-			}
-
-		}
+		/*
+		 * 
+		 * public BSTNode next() { if (this.hasNext()) {
+		 * 
+		 * this.current = this.root; this.current = nextInOrder();
+		 * 
+		 * this.previousCode = this.current.getCourseCode(); return this.current;
+		 * 
+		 * } else { throw new NoSuchElementException();
+		 * 
+		 * }
+		 * 
+		 * }
+		 * 
+		 */
 
 		/**
 		 * Decides which node is the next, with the help of two functions goLeft and
@@ -342,36 +358,26 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		 * 
 		 */
 
-		public BSTNode nextInOrder() {
-			if (this.previousCode == null) {
-				while (this.current.getLeftChild() != null) {
-					this.current = this.current.getLeftChild();
-				}
-				return this.current;
-
-			}
-			this.go = true;
-			this.compare = this.current.getCourseCode().compareTo(this.previousCode);
-			this.savedCode = this.current.getCourseCode();
-			while (this.go) {
-				if (this.compare > 0) {
-					this.current = goLeft();
-					this.compare = this.current.getCourseCode().compareTo(this.previousCode);
-					if (this.compare > 0) {
-						this.go = false;
-					}
-				} else {
-					this.current = goRight();
-					this.compare = this.current.getCourseCode().compareTo(this.previousCode);
-					if (this.compare <= 0) {
-						this.go = false;
-					}
-
-				}
-			}
-
-			return find(savedCode, this.root);
-		}
+		/*
+		 * 
+		 * public BSTNode nextInOrder() { if (this.previousCode == null) { while
+		 * (this.current.getLeftChild() != null) { this.current =
+		 * this.current.getLeftChild(); } return this.current;
+		 * 
+		 * } this.go = true; this.compare =
+		 * this.current.getCourseCode().compareTo(this.previousCode); this.savedCode =
+		 * this.current.getCourseCode(); while (this.go) { if (this.compare > 0) {
+		 * this.current = goLeft(); this.compare =
+		 * this.current.getCourseCode().compareTo(this.previousCode); if (this.compare >
+		 * 0) { this.go = false; } } else { this.current = goRight(); this.compare =
+		 * this.current.getCourseCode().compareTo(this.previousCode); if (this.compare
+		 * <= 0) { this.go = false; }
+		 * 
+		 * } }
+		 * 
+		 * return find(savedCode, this.root); }
+		 * 
+		 */
 
 		/**
 		 * While the current node is of a higher value than the previous, set current to
@@ -383,18 +389,18 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		 *         previous iteration.
 		 */
 
-		public BSTNode goLeft() {
-			while (this.compare > 0 && this.current.getLeftChild() != null) {
-				this.current = this.current.getLeftChild();
-				this.compare = this.current.getCourseCode().compareTo(this.previousCode);
-				if (this.compare > 0) {
-					this.savedCode = this.current.getCourseCode();
-				}
-
-			}
-			return this.current;
-
-		}
+		/*
+		 * 
+		 * public BSTNode goLeft() { while (this.compare > 0 &&
+		 * this.current.getLeftChild() != null) { this.current =
+		 * this.current.getLeftChild(); this.compare =
+		 * this.current.getCourseCode().compareTo(this.previousCode); if (this.compare >
+		 * 0) { this.savedCode = this.current.getCourseCode(); }
+		 * 
+		 * } return this.current;
+		 * 
+		 * }
+		 */
 
 		/**
 		 * While the current node is of a lower or equal value than the one from the
@@ -406,18 +412,48 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		 *         previous iteration.
 		 */
 
-		public BSTNode goRight() {
-			while (this.compare <= 0 && this.current.getRightChild() != null) {
-				this.current = this.current.getRightChild();
-				this.compare = this.current.getCourseCode().compareTo(this.previousCode);
-				if (this.compare > 0) {
-					this.savedCode = this.current.getCourseCode();
-				}
+		/*
+		 * 
+		 * public BSTNode goRight() { while (this.compare <= 0 &&
+		 * this.current.getRightChild() != null) { this.current =
+		 * this.current.getRightChild(); this.compare =
+		 * this.current.getCourseCode().compareTo(this.previousCode); if (this.compare >
+		 * 0) { this.savedCode = this.current.getCourseCode(); } } return this.current;
+		 * 
+		 * }
+		 * 
+		 * }
+		 * 
+		 * }
+		 */
+		public boolean hasNext() {
+			if (!stack.isEmpty() || this.current != null) {
+				return true;
+			} else {
+				return false;
 			}
-			return this.current;
-
 		}
 
-	}
+		public BSTNode next() {
+			if (hasNext()) {
+				if (this.current == null) {
+					this.current = stack.pop();
+				}
+				if (this.current.getRightChild() != null) {
+					this.stack.push(this.current.getRightChild());
+				}
+				if (this.current.getLeftChild() != null) {
+					this.stack.push(this.current.getLeftChild());
+				}
 
+				temp = this.current;
+
+				this.current = null;
+				return temp;
+
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
+	}
 }
