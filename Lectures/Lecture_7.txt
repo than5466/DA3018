@@ -1,0 +1,173 @@
+Analys av Algoritmer:
+
+Senast: Binära sökträd.
+
+Idag: Verktyg för att jämföra algoritmer & datastrukturer.
+
+Grund: Definiera beräkningsproblemet.
+
+Behövs:
+
+	- Namn
+	- Krav på indata.
+	- Krav på utdata - vad som faktiskt ska beräknas.
+	- Ibland: Bivillkor.
+
+Ex: Sökproblemet
+	
+	In: array A, med tal i [0,2^32-1] och ett tal q.
+
+	Ut: Index i s.a. A[i] = q, och null annars.
+
+En instans av ett beräkningsproblem är indata som uppfyller villkoren för problemet.
+
+En algoritm är en steg för steg-beskrivning av hur man beräknar utdata för ett problem.
+
+En algoritm är korrekt om den avslutar och returnerar ett riktigt svar.
+
+Algoritmer som ej garanterar korrekthet är en heuristik.
+
+Heuristiker kan ta genvägar. Rätt svar ibland.
+
+Mål: hitta algoritmer och jämföra dem. Vilka resurser använder algoritmen? 
+
+	- Körtid, snabbhet.
+
+	- Minne.
+
+	- Datorkommunikation krävs?
+
+	- Cache-missar.
+		- tid
+		- energi
+	
+	- Datamängder styr val idag.
+
+	- Kan ej använda dators kapacitet med sämre algoritm.
+
+	- Kan vara latare. Datorn "täcker upp". Bra?
+
+	- Inom fixerad tid, kanske inte nödvändigt optimera.
+
+	- Din tid är dyrare än datorns tid.
+
+
+Påstående:
+	
+	- Påverkar inte slutsatser om algoritmers kvalitét.
+
+Hur jämföra resursanvändning på dagens komplicerade datorer?
+
+	- Använd modell av datorn.
+
+	- Vetenskaplig ansats till studera algoritmer & datorer.
+
+30-talet: 
+
+	- Alonzo Church: Lambda - kalkylen. -> Lisp, funk. prog.
+
+40-talet:
+
+	- Alan Turing: Turing-maskinen
+
+	- Resonera om beräkningsbarhet.
+
+	- Använder: Ändliga automater. (finite state machines)
+
+	- Modellerar "beräkningsmaskiner" inkl. digitala kretsar.
+
+
+Vanligt:
+
+	- Random Access Machine (RAM)
+
+	- Enkel modell av mobil/bordsdator/superdator.
+
+	- Egenskaper:
+	
+		- Obegränsat med minne.
+			- Om vi begränsar, så håller analysen inte på framtida datorer. 
+			- Opraktiskt att begränsa.
+
+		- Enhetskostnad för alla elementära operationer.
+			- Minnesaccess: 1 t.e
+			- Addition: 1 t.e
+			- Mult.: 1 t.e
+
+Sortering: räkna antalet jämförelser
+
+	- Arne Andersson
+	- Stefan Nilsson
+
+	- Föreslog snabba sorteringsalg.
+
+	- Bröt mot etablerade principer, räknade elementära op, istället för jämförelser.
+
+	- Anledning: begränsad storlek på elementen som ska jämföras.
+
+
+
+Komplexitetsanalys:
+
+	- Vill ha sätt att analysera och kommunicera resursårgång. Bra att titta på beroendet av indatastorleken.
+
+	- Addition:
+		- In: Två tal med n st siffror. (n siffror är indatastorleken)
+
+		- Ut: Deras summa
+
+Önskan: funktion T(n) som säger hur många elementära operationer som krävs.
+
+	- T(n) = 3n + 17 ?
+
+	- Exakthet oftast opraktiskt.
+
+	- Enklare: Asymptotisk komplexitet. om det existerar c,x0 s.a för alla x > x0, T(x) <= cf(x).
+		-> T(n) = O(f(n)) "ordo f(n)".        Eng: (Big-O notation) "T(n) is big-O of f(n)"
+
+	- Ordo-notation:
+		
+		- Döljer konstanter.
+
+		- Fokuserar på hur funktioner växer.
+
+		- Döljer insignifikanta termer.
+
+		- T(n) = 6n^3+73n^2+10^6.
+		
+		- T(n) = O(n^3).
+
+
+	- Oftast bara intresserade av värsta fallet.
+
+		- Av praktiska skäl!
+
+		- Förväntad tidskomplexitet. (Genomsnittlig tidsåtgång)
+			- Kräver ofta sannolikhetsfördelning på data. Brukar saknas.
+			- Dessutom ofta svårt.
+
+Ex: Sökproblemet.
+
+	Möjlig algoritm:
+		
+		search(A,q):
+			for (idx = 0; idx < len(A); idx++):
+				if A[idx] == q:
+					return idx
+			return null
+
+
+Det är skillnad på 0,001*n och 10^3n:
+"Den algoritmen har en stor konstant."
+
+"Vanlig multiplikation": O(n^2).
+
+Strassen-Schönhage: O(n * log(n) * log(log(n))).
+
+Katsuba O(n^1.3...) mha rekursion.
+
+
+
+
+
+

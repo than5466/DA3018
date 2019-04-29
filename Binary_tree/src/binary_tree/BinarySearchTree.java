@@ -35,8 +35,6 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	 * @param root
 	 * @param node
 	 * 
-	 *             WARNING! This method has a bug, it does not behave according to
-	 *             specification!
 	 */
 	public BSTNode insert(BSTNode root, BSTNode node) {
 		if (root == null) {
@@ -88,7 +86,6 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 	public BSTNode find(String courseCode, BSTNode node) {
 		if (node == null) {
-			System.out.println("Icke då!");
 			return null;
 		}
 		String currentCode = node.getCourseCode();
@@ -113,7 +110,6 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	public BSTNode remove(String courseCode, BSTNode node) {
 
 		if (node == null) {
-			System.out.println("Nej du!");
 			return null;
 		} else {
 
@@ -200,48 +196,80 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		}
 
 	}
+	/**
+	 * Creating a new instance of the iterator class defined below
+	 * 
+	 * 
+	 */
 
 	public Iterator<BSTNode> iterator() {
-		return new TreeIterator(root);
+		return new BSTIterator(root);
 	}
+	
+	/**
+	 * Iterator class that iterates through a BST in order.
+	 * 
+	 */
 
-	private class TreeIterator implements Iterator<BSTNode> {
+	private class BSTIterator implements Iterator<BSTNode> {
 		private BSTNode current;
-		private BSTNode save;
-		private String last;
-		private String maxRight;
+		private BSTNode root;
+		private String previousCode;
+		private String finalCode;
 		private boolean go;
-		private String saved;
+		private String savedCode;
 		private int compare;
+		
+		/**
+		 * 
+		 * @param node - an object of the BSTNode class.
+		 */
 
-		public TreeIterator(BSTNode node) {
+		public BSTIterator(BSTNode node) {
 			this.current = node;
-			this.save = node;
-			this.last = null;
-			this.maxRight = RightCourseCode(this.current);
-			this.saved = null;
+			this.root = node;
+			this.previousCode = null;
+			this.finalCode = FinalCode(this.current);
+			this.savedCode = null;
 
 		}
+		/**
+		 * 
+		 * @param node - an object of the BSTNode class
+		 * @return the course code from the node which has the highest valued course code.
+		 */
 
-		public String RightCourseCode(BSTNode node) {
-			;
+		public String FinalCode (BSTNode node) {
 			while (node.getRightChild() != null) {
 				node = node.getRightChild();
 			}
 			return node.getCourseCode();
 		}
+		
+		/**
+		 * returns false if the course code of the node which next() returned previously
+		 * is the same as the highest valued one, true otherwise.
+		 */
 
 		public boolean hasNext() {
-			return this.last != this.maxRight;
+			return this.previousCode != this.finalCode;
 		}
+		
+		/**
+		 * returns the course code which the method nextInOrder decides.
+		 * also updates the previousCode parameter to make sure that the iterator doesn't get stuck in
+		 * an endless loop.
+		 * 
+		 * Also sets the current node to the original root, before calling the nextInOrder method.
+		 */
 
 		public BSTNode next() {
 			if (this.hasNext()) {
 
-				this.current = this.save;
+				this.current = this.root;
 				this.current = nextInOrder();
 
-				this.last = this.current.getCourseCode();
+				this.previousCode = this.current.getCourseCode();
 				return this.current;
 
 			} else {
@@ -250,34 +278,25 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 			}
 
 		}
-		/*
+		
+		/**
+		 * Decides which node is the next, with the help of two functions goLeft and goRight.
+		 * If the current node has a higher value than the one returned in the last iteration, 
+		 * the goLeft function is called until the current node isn't bigger than the previous.
+		 * Then the right function is called. This is done until the next node for certainty isn't
+		 * any deeper in the tree.
+		 * The while loop is cancelled when the current child doesn't have a right child,
+		 * but the current node has a smaller or equal value than the last one, or vice versa
+		 * for the left child.
+		 * @return
+		 * When the next course code for certain isn't any deeper in the tree, the find function is used to 
+		 * locate the node which value is greater, but with the smallest margin, than the previous code,
+		 * and then returns it.
 		 * 
-		 * public BSTNode nextInOrder() { if (this.last == null) { while
-		 * (this.current.getLeftChild() != null) { this.current =
-		 * this.current.getLeftChild(); } return this.current;
-		 * 
-		 * } int compare = this.current.getCourseCode().compareTo(this.last); String
-		 * saved = null; while (compare > 0) {
-		 * 
-		 * saved = this.current.getCourseCode(); this.current =
-		 * this.current.getLeftChild();
-		 * 
-		 * compare = this.current.getCourseCode().compareTo(this.last);
-		 * 
-		 * } while (compare <= 0 && this.current.getRightChild() != null) { this.current
-		 * = this.current.getRightChild(); compare =
-		 * this.current.getCourseCode().compareTo(this.last); if (compare > 0) { saved =
-		 * this.current.getCourseCode(); } } while (compare > 0 &&
-		 * this.current.getLeftChild() != null) { this.current =
-		 * this.current.getLeftChild(); compare =
-		 * this.current.getCourseCode().compareTo(this.last); if (compare > 0) { saved =
-		 * this.current.getCourseCode(); }
-		 * 
-		 * }
 		 */
 
 		public BSTNode nextInOrder() {
-			if (this.last == null) {
+			if (this.previousCode == null) {
 				while (this.current.getLeftChild() != null) {
 					this.current = this.current.getLeftChild();
 				}
@@ -285,18 +304,18 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 			}
 			this.go = true;
-			this.compare = this.current.getCourseCode().compareTo(this.last);
-			this.saved = this.current.getCourseCode();
+			this.compare = this.current.getCourseCode().compareTo(this.previousCode);
+			this.savedCode = this.current.getCourseCode();
 			while (this.go) {
 				if (this.compare > 0) {
 					this.current = goLeft();
-					this.compare = this.current.getCourseCode().compareTo(this.last);
+					this.compare = this.current.getCourseCode().compareTo(this.previousCode);
 					if (this.compare > 0) {
 						this.go = false;
 					}
 				} else {
 					this.current = goRight();
-					this.compare = this.current.getCourseCode().compareTo(this.last);
+					this.compare = this.current.getCourseCode().compareTo(this.previousCode);
 					if (this.compare <= 0) {
 						this.go = false;
 					}
@@ -305,28 +324,44 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 				}
 			}
 
-			return find(saved, this.save);
+			return find(savedCode, this.root);
 		}
+		
+		/**
+		 * While the current node is of a higher value than the previous, set current to the left child.
+		 * if a node with a higher value is found, set the savedCode to the course name of the code.
+		 * @return
+		 * returns current node whenever the node doesn't have a left child or the current node has a lower
+		 * or equal value than the one found in the previous iteration.
+		 */
 
 		public BSTNode goLeft() {
 			while (this.compare > 0 && this.current.getLeftChild() != null) {
 				this.current = this.current.getLeftChild();
-				this.compare = this.current.getCourseCode().compareTo(this.last);
+				this.compare = this.current.getCourseCode().compareTo(this.previousCode);
 				if (this.compare > 0) {
-					this.saved = this.current.getCourseCode();
+					this.savedCode = this.current.getCourseCode();
 				}
 
 			}
 			return this.current;
 
 		}
+		/**
+		 * While the current node is of a lower or equal value than the one from the previous iteration,
+		 * set current to the right child.
+		 * if a node with a higher value is found, set the savedCode to the course name of the code.
+		 * @return
+		 * returns current node whenever th node doesn't have a right child or the current node has a higher
+		 * value than the one found in the previous iteration.
+		 */
 
 		public BSTNode goRight() {
 			while (this.compare <= 0 && this.current.getRightChild() != null) {
 				this.current = this.current.getRightChild();
-				this.compare = this.current.getCourseCode().compareTo(this.last);
+				this.compare = this.current.getCourseCode().compareTo(this.previousCode);
 				if (this.compare > 0) {
-					this.saved = this.current.getCourseCode();
+					this.savedCode = this.current.getCourseCode();
 				}
 			}
 			return this.current;
