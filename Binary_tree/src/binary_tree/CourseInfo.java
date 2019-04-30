@@ -69,6 +69,7 @@ public class CourseInfo {
 	}
 
 }
+
 /*
  * public static void main(String[] args) {
  * 

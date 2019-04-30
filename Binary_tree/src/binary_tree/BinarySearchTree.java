@@ -486,7 +486,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 					}
 					this.temp = this.current;
-					this.current = null;
+					this.current = this.current.getRightChild();
 					return this.temp;
 				}
 
