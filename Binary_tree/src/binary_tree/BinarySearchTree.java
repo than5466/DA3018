@@ -269,7 +269,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		// private String previousCode;
 		// private String finalCode;
 		// private boolean go;
-		private String savedCode;
+		//private String savedCode;
 		// private int compare;
 		private Stack<BSTNode> stack;
 
@@ -283,7 +283,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 			// this.root = node;
 			// this.previousCode = null;
 			// this.finalCode = FinalCode(this.current);
-			this.savedCode = null;
+			//this.savedCode = null;
 			this.stack = new Stack<BSTNode>();
 
 		}
