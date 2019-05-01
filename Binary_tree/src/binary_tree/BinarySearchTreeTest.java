@@ -52,7 +52,7 @@ class BinarySearchTreeTest {
 		assertEquals("C",BST.find("5").getCourseName());
 		
 		assertEquals("Matematik I",BST.find("MM2001").getCourseName());
-		assertEquals(30.0,BST.find("MM2001").getCredits());
+		assertEquals(7.5,BST.find("7").getCredits());
 		assertEquals(null,BST.find("MM2000"));
 	}
 	

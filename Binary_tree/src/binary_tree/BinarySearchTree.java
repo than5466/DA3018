@@ -50,8 +50,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 			} else if (node.getCourseCode().compareTo(currentKey) > 0) { // left string "after" right string
 				right = insert(right, node);
 			} else {
-				root.courseName = node.getCourseName();
-				root.credits = node.getCredits();
+				root = node;
 			}
 
 			root.setChildren(left, right);
