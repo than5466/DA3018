@@ -49,7 +49,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 				left = insert(left, node);
 			} else if (node.getCourseCode().compareTo(currentKey) > 0) { // left string "after" right string
 				right = insert(right, node);
-			} else {
+			} else {   // a node with this course code already exists, overwrite it.
 				root = node;
 			}
 
@@ -61,8 +61,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	/**
 	 * size: Count the number of nodes in the search tree
 	 * 
-	 * @return calls the size function defined under this one with the parameter
-	 *         root.
+	 * @return returns the number of nodes in the binary search tree
 	 */
 
 	public int size() {
@@ -73,15 +72,13 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	/**
 	 * 
 	 * @param node
-	 * @return returns 0 if the current node is null, otherwise returns 1 +
-	 *         recursively the remove function on the right and left node node,
-	 *         respectively.
+	 * @return recursively runs through the search tree, counting the number of nodes in the tree.
 	 */
 
 	public int size(BSTNode node) {
-		if (node == null) {
+		if (node == null) { //the easy case, this child from the previous recursion didn't exist.
 			return 0;
-		} else {
+		} else { //recursively calculates the size of the left and right children, and returns 1 + those sizes.
 			BSTNode left = node.getLeftChild();
 			BSTNode right = node.getRightChild();
 			return 1 + size(left) + size(right);
@@ -90,6 +87,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 	/**
 	 * find: Find a course given a course code
+	 * @return returns the node with a given course code. If no such node exist, returns null.
 	 */
 
 	public BSTNode find(String courseCode) {
@@ -97,31 +95,25 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	}
 
 	/**
-	 * A comparison is made between the current node and the one searched for. If
-	 * the current node is of higher value than the one searched for, recursively
-	 * call this function but with the left child of the current node, otherwise
-	 * recursively call the function with the right child.
+	 * 
 	 * 
 	 * @param courseCode
 	 * @param node
-	 * @return
-	 * 
-	 *         If they're the same, return the current node. If it doesn't exist,
-	 *         return null.
+	 * @return node with given course code.
 	 */
 
 	public BSTNode find(String courseCode, BSTNode node) {
-		if (node == null) {
+		if (node == null) { //A node with this course code doesn't exist in the binary search tree.
 			return null;
 		}
 		String currentCode = node.getCourseCode();
 		int compare = currentCode.compareTo(courseCode);
 
-		if (compare == 0) {
+		if (compare == 0) { // return the node with the given course code.
 			return node;
-		} else if (compare > 0) {
+		} else if (compare > 0) { // if the current node has higher value than the one searched for, search in the left child.
 			return find(courseCode, node.getLeftChild());
-		} else {
+		} else { // if the current node has higher value than the one searched for, search in the right child.
 			return find(courseCode, node.getRightChild());
 		}
 
@@ -131,6 +123,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 	 * remove: removes the current node searched for.
 	 * 
 	 * @param courseCode
+	 * 
 	 */
 
 	public void remove(String courseCode) {
@@ -158,7 +151,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 	public BSTNode remove(String courseCode, BSTNode node) {
 
-		if (node == null) {
+		if (node == null) { //No node with this course code exists.
 			return null;
 		} else {
 
@@ -166,24 +159,24 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 			BSTNode right = node.getRightChild();
 
 			int compare = node.getCourseCode().compareTo(courseCode);
-			if (compare == 0) {
-				if (right == null) {
+			if (compare == 0) { // This is the node that should be removed.
+				if (right == null) { // If the node has no right child, return left.
 
 					return left;
-				} else if (left == null) {
+				} else if (left == null) {// If the node has no left child, return right.
 
 					return right;
 
-				} else {
+				} else { // The node has a right child and a left child. Insert the left child into the right and return.
 					return insert(right, left);
 
 				}
 
-			} else if (compare > 0) {
+			} else if (compare > 0) { // The current node has higher value than the one to be removed, search the left child.
 				left = remove(courseCode, left);
 				node.setChildren(left, right);
 				return node;
-			} else {
+			} else { //The current node has lower value than the one to be removed, search the right child.
 				right = remove(courseCode, right);
 				node.setChildren(left, right);
 				return node;
@@ -263,7 +256,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 	private class BSTIterator implements Iterator<BSTNode> {
 		private BSTNode current;
-		private BSTNode temp;
+		private BSTNode saved;
 		// private BSTNode root;
 		// private String previousCode;
 		// private String finalCode;
@@ -429,7 +422,7 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		 * is null.
 		 */
 
-		public boolean hasNext() {
+		public boolean hasNext() { // A next node exist unless the stack is empty and the current node is null.
 			if (!stack.isEmpty() || this.current != null) {
 				return true;
 			} else {
@@ -467,26 +460,21 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 
 		public BSTNode next() {
 			if (hasNext()) {
-				if (this.current == null) {
+				if (this.current == null) { // if the current node is null, pop from the stack, set the current to the right child and return popped node.
 					this.current = this.stack.pop();
-					this.temp = this.current;
-					this.current = this.temp.getRightChild();
-					if (this.current != null) {
-
-						this.stack.push(this.current);
-						this.current = this.current.getLeftChild();
-
-					}
-					return this.temp;
-				} else {
+					this.saved = this.current;
+					this.current = this.current.getRightChild();
+					return this.saved;
+					
+				} else { // While the current node has a left child, push the node and set the node to its left child. return when no left child exist.
 					while (this.current.getLeftChild() != null) {
 						this.stack.push(this.current);
 						this.current = this.current.getLeftChild();
 
 					}
-					this.temp = this.current;
+					this.saved = this.current;
 					this.current = this.current.getRightChild();
-					return this.temp;
+					return this.saved;
 				}
 
 			} else {

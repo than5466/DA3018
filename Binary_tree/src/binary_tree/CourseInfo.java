@@ -71,7 +71,6 @@ public class CourseInfo {
 }
 
 /*
- * 
  * public static void main(String[] args) {
  * 
  * BinarySearchTree courses = new BinarySearchTree();
@@ -108,5 +107,4 @@ public class CourseInfo {
  * }
  * 
  * }
- * 
  */
