@@ -41,7 +41,7 @@ public class CourseInfo {
 				BST.insert(strList[0], strList[1], Double.parseDouble(strList[2]));
 
 			}
-			if (args.length == 2) {
+			try {
 				BinarySearchTree.BSTNode g;
 				g = BST.find(args[1]);
 				if (g == null) {
@@ -53,7 +53,7 @@ public class CourseInfo {
 					System.out.printf("%6s%n", g.getCredits());
 				}
 
-			} else {
+			} catch (Exception ArrayIndexOutOfBounds) {
 				for (BinarySearchTree.BSTNode node : BST) {
 					System.out.printf("%-8s", node.getCourseCode());
 					System.out.printf("%-20s", node.getCourseName());
@@ -69,7 +69,6 @@ public class CourseInfo {
 	}
 
 }
-
 /*
  * public static void main(String[] args) {
  * 
