@@ -1,0 +1,121 @@
+Lab 5 & 6 på g.
+
+Strängjämförelser i Java:
+
+	- Metoden equals
+		- s1.equals(s1) -> true/false
+
+	- Metoden compareTo
+		- s1.compareTo(s2) -> neg/0/pos
+
+	- == och != jämför referenser, bra för konstantvärden.
+
+Senast: komplexitet (tids):
+
+	- Asymptotisk komplexitet	O(f(n))
+
+	- Senaste ex: tidskomplexitet för sökning i array.
+
+	- Vad tar tid? Identifiera "konstanttermerna".
+		- O(C*f(n)) = O(f(n)).
+
+	- ex: sökning i sorterad array.
+	
+		- In: Array A, len(A) = n, och q
+
+		- Ut: index i s.a A[i]=q, eller false.
+
+		binary_search(A,n,q):
+			L = 0					1 t.e
+			R = n-1					2 t.e
+			while L <= R:				1 t.e
+				mid = (L+R)//2			2 t.e
+				if A[mid] < q:			2 t.e
+					L = mid+1		2 t.e
+				else if A[mid] > q:		2 t.e
+					R = mid-1		2 t.e
+				else:
+					return mid		1
+
+		- Intervallet halveras varje iteration.
+		- Värsta fall: Itererar tills L = R. 
+
+		- n2^(-i+1)
+
+		- lg(2^(-i+1))= lg(1/n)
+		- -i + 1 > - lg n
+		- i - 1 < lg n
+		- Itererar tills i < lg(n) + 1
+		- I varje iteration: konstant arbete. O(1)
+		- O(lg(n)) iterationer.
+		- totalt arbete O(lg(n)) eller O(log(n))
+
+		- Tydligare:
+			- I varje iteration högst C operationer
+			- Antal iterationer är lg(n)+1
+			- -> C(lg(n)+1) -> O(lg(n))
+
+	- ex 1: for-loop
+	- ex 2: while-loop
+	- ex 3: rekursion
+
+	- Sökning i binärt sökträd:
+	
+		search(r,q):
+			if r == null:
+				return false
+			else if q = key(r):
+				return r
+			else if q < key(r):
+				return search(r.left,q)
+			else:
+				return search(r.right,q)
+
+		Söker Tsearch(r).
+
+		- T(r) = C, eller T(r) = C + T(r.left)
+
+		- Antagande: T(r) = O(h) eller T(r) <= C*h.
+
+		- Rekursionsekvation.
+			- Löses typiskt med induktion.
+
+			- Basfall: Korrekt då r är ett löv.
+				- ind.steg antag korrekt för träd av höjd h-1.
+				- T(r) <= C+C(h-1) = C(h) -> T(r) = O(h).
+				- Balanserat träd är h = O(lg(n)).
+				- Värsta fall: h = O(n).
+				
+
+Datastruktur: heap (trappa)
+	- binär heap
+
+	- Ett sorts sökträd (typ)
+
+	- Tillämpning: köer
+
+	- Snabb insättning
+	- Snabb konstruktion
+	- Snabb borttagning av max-(min-) element
+
+	- Egenskaper:
+
+		- Varje element större än sina barn.
+		- Nära fullständigt binärt träd.
+		- Alla träd utom högst ett har 0 eller 2 hörn.
+		- Bra lagra i array A.
+			- Typiskt rot i A[1].
+		- Barn till element j på element 2j och 2j+1.
+
+Snål algoritm:
+
+	- För kortaste gemensamma supersträng.
+
+	- Approximera?
+		- Är som värst 4 ggr för lång.
+
+
+
+			
+
+
