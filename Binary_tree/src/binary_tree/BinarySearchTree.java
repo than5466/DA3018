@@ -422,14 +422,6 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		 * is null.
 		 */
 
-		public boolean hasNext() { // A next node exist unless the stack is empty and the current node is null.
-			if (!stack.isEmpty() || this.current != null) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-
 		/**
 		 * Pre order traversal of the binary tree with the help of a stack. Each
 		 * iteration the current nodes children (if it has any) gets pushed to the
@@ -454,9 +446,17 @@ public class BinarySearchTree implements Iterable<BinarySearchTree.BSTNode> {
 		 */
 		
 		/*
-		 * In-order traversal. 
+		 * In-order traversal using a stack. 
 		 * 
 		 */
+		
+		public boolean hasNext() { // A next node exist unless the stack is empty and the current node is null.
+			if (!stack.isEmpty() || this.current != null) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
 		public BSTNode next() {
 			if (hasNext()) {
