@@ -45,58 +45,29 @@ public class Lexer {
 	 * 
 	 * }
 	 */
-	
+
 	public ArrayList<String> tokens() {
 		for (int i = 0; this.string.length() > i; i++) {
 			if (this.comment == true) {
-				if (this.string.substring(i, i + 1).equals("]")) {
+				if (this.string.charAt(i) == ']') {
 					this.comment = false;
 				}
-			} else {
-				if (this.string.substring(i, i + 1).equals("[")) {
-					this.comment = true;
+			} else if (this.string.charAt(i) == '[') {
+				this.comment = true;
+			} else if (containsChar(this.searchString, this.string.charAt(i))) {
+				if (this.string.charAt(i) == ' ') {
+
 				} else {
-					int j = i;
-					while (!containsChar(this.searchString, this.string.charAt(j)) && j < this.string.length() - 1) {
-						j++;
-					}
-					if (j != i) {
-						if (j == this.string.length() - 1) {
-							if (containsChar(this.searchString, this.string.charAt(j))) {
-								if (this.string.charAt(j) == ' ') {
-									this.tokens.add(this.string.substring(i, j));
-
-								} else {
-									this.tokens.add(this.string.substring(i, j));
-									this.tokens.add(this.string.substring(j, j + 1));
-								}
-							} else {
-
-								this.tokens.add(this.string.substring(i, j + 1));
-							}
-						} else {
-
-							this.tokens.add(this.string.substring(i, j));
-							if (this.string.charAt(j) == ' ') {
-
-							} else {
-								this.tokens.add(this.string.substring(j, j + 1));
-							}
-
-						}
-
-					} else {
-						if (this.string.charAt(i) == ' ') {
-
-						} else {
-							this.tokens.add(this.string.substring(i, i + 1));
-						}
-
-					}
-					i = j;
+					this.tokens.add(this.string.substring(i, i + 1));
 				}
+
+			}else {
+				int j = i + nextIndex(this.string.substring(i));
+				this.tokens.add(this.string.substring(i,j));
+				i = j-1;
 			}
 		}
+
 		return this.tokens;
 
 	}
