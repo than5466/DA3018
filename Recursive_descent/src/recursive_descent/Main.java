@@ -10,7 +10,7 @@ public class Main {
 		System.out.println(b);
 		
 		TreeParser c = new TreeParser();
-		TreeParser.Tree x = c.parse(b);
+		Tree x = c.parse(b);
 		
 		try {
 
