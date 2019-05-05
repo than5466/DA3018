@@ -14,6 +14,7 @@ public class TreeParser {
 		int currentHeight = 0;
 		int leaves = 0;
 		boolean rootError = true;
+		Tree tree = new Tree();
 
 		for (int i = s.size() - 1; i >= 0; i--) {
 			switch (s.get(i)) {
@@ -41,6 +42,7 @@ public class TreeParser {
 				if (rootError) {
 					return null;
 				}
+				
 				break;
 			case ":":
 				break;
@@ -52,10 +54,14 @@ public class TreeParser {
 
 			}
 		}
+		
 		if (currentHeight != 1) {
 			return null;
 		}
-		return new Tree(maxHeight, leaves);
+		
+		tree.setHeight(maxHeight);
+		tree.setLeaves(leaves);
+		return tree;
 	}
 
 }

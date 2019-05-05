@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Lexer {
 	String inputString;
-	String search = ",();:[] ";
+	String searchString = ",();:[] ";
 	
 	/**
 	 * 
-	 * @param str
+	 * @param s
 	 */
 
 	public Lexer(String s) {
@@ -31,15 +31,15 @@ public class Lexer {
 	
 	public ArrayList<String> tokens(String s) {
 		ArrayList<String> lexedList = new ArrayList<String>();
-		boolean ifComment = false;
+		boolean commentStatus = false;
 		for (int i = 0; s.length() > i; i++) {
-			if (ifComment) {
+			if (commentStatus) {
 				if (s.charAt(i) == ']') {
-					ifComment = false;
+					commentStatus = false;
 				}
 			} else if (s.charAt(i) == '[') {
-				ifComment = true;
-			} else if (containsChar(this.search, s.charAt(i))) {
+				commentStatus = true;
+			} else if (containsChar(this.searchString, s.charAt(i))) {
 				if (s.charAt(i) == ' ') {
 
 				} else {
@@ -59,9 +59,11 @@ public class Lexer {
 	}
 	/**
 	 * 
-	 * @param s
+	 * @param s	
 	 * @param search
 	 * @return
+	 * Recursively compares every index of the string s with the char c. Returns true if one of these
+	 * comparisons returns true, otherwise false.
 	 */
 
 	public boolean containsChar(String s, char c) {
@@ -75,18 +77,18 @@ public class Lexer {
 	 * 
 	 * @param s 
 	 * @return
+	 * given a string s, returns the first index in the string containing one of the symbols in searchString.
+	 * Returns the length of the string if none exists.
 	 */
 
 	public int nextIndex(String s) {
 		for (int i = 1; i < s.length(); i++) {
-			if (this.containsChar(this.search, s.charAt(i))) {
+			if (this.containsChar(this.searchString, s.charAt(i))) {
 				return i;
-			} else if (i == s.length() - 1) {
-				return s.length();
-			}
+			} 
 		}
 
-		return 0;
+		return s.length();
 
 	}
 }
