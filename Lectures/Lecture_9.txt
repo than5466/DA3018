@@ -1,0 +1,146 @@
+Syntaxanalys:
+
+	- I kursplanen!
+
+	- Nu redo.
+
+	- Relaterar till träd.
+
+	- Schematekniskt.
+
+Formaterad inläsning av data: (inkl. kod)
+
+	- Eneklt: CSV och andra radorienterade format.
+
+	- Men XML då? (Använd modul)
+	- JSON
+
+Grammatik = formell beskrivning av ett "språk".
+
+Givet en grammatik, hur känna igen språket.
+
+Beräkningsproblem:
+
+	- In: En grammatik och en sträng.
+
+	- Ut: "Ja", om strängen kan produceras* av grammatiken och "nej" annars.
+
+	- *Generativ "kombinatorisk" modell av de strängar som är "rätt".
+
+Användningsexempel:
+
+	- Givet en beskrivning av en datafil, läs in till datastruktur.
+
+	- Givet ett program från språk X (t.ex C), skapa en datastruktur som representerar programmet -> Kompilators första steg.
+
+Inläsningproblemet brukar delas in i:
+
+	- Lexikal analys.
+
+	- Tolkning (parsing), syntaxanalys.
+
+Lexikal analys:
+
+	- Syfte: Känna igen väsentliga "byggblock" i indatasträngen -> terminaler.
+
+	- ex:
+
+		- Tal
+
+		- Variabelidentifierare
+
+		- funktionsidentifierare
+
+		- kommatecken som separator.
+
+		- Parenteser.
+
+	- Indata: En sträng.
+
+	- Utdata: Lista av terminaler.
+
+	- Listan kan representeras på mest praktiska sätt. (ArrayList?)
+
+	- Terminalerna: Använd lämplig representation.
+
+	- T.ex:
+
+		- En terminal är en sträng (lab 5?)
+
+		- Skapa klass(er) för terminalerna.
+
+		- Obs: Terminalerna bara representerar det viktiga i indata.
+
+		- Oviktigt:
+
+			- Mellanslag,tabbar,nyradstecken(?).
+
+			- Kommentarer ska bort!
+
+	- Grammatiker:
+
+		- Formell notation.
+
+		- Massvis med forskning! (Noam Chomsky)
+
+		- Klassificering av grammatiker.
+
+		- Viktig klass: Kontextfria grammatiker:
+
+			- Praktiska.
+
+			- Uttrycksfulla.
+
+		- Klassisk notation: (Backus-Naur form (BNF))
+
+		- Idag: EBNF (Extended BNF)
+
+			- Grunden tll många "parser generators", program som tar en grammatik och genererar kod för den.
+
+			- EBNF byggs upp av produktioner, dvs regler för hur en slutsträng skapas.
+
+			- ex: even = "0" | "2" | "4" | "6" | "8",
+			      udda = "1" | "3" | "5" | "7" | "9",
+
+				digit = even
+				      != odd
+
+
+Aritmetiska uttryck:
+
+	expr = expr '+' expr | term;
+
+	term = term '*' factor | factor;
+
+	factor = '(' expr ')' | IDENT | NUMBER;
+
+	start = expr;
+
+Klassning av grammatiker:
+
+	- Läser du från vänster eller höger? (L/R)
+
+	- Expanderas grammatiken till vänster eller höger? (L/R/nej inte alls)
+
+	- Hur många terminaler k används för att avgöra vilken produktion som måste användas?
+
+	- Bra klass: LL(k), där k konstant.
+
+	- LL(1)
+
+	- Grammatik för S-uttryck:
+		- 1 + 2 -> (+ 1 2)
+		- (f x y) -> f(x,y)
+
+		- 1+2*3 -> (+ 1( * 2 3))
+
+	- LL(k) kan tolkas med rekursiv medåkning. (recursive descent).
+
+
+
+
+
+
+
+
+

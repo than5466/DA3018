@@ -3,65 +3,55 @@ package recursive_descent;
 import java.util.ArrayList;
 
 public class TreeParser {
+	Tree tree;
+	String searchString = ",();:[] ";
 
 	public TreeParser() {
+		this.tree = new Tree();
 
 	}
 
 	public Tree parse(ArrayList<String> s) {
 
-		int maxHeight = 0;
-		int currentHeight = 0;
-		int leaves = 0;
-		boolean rootError = true;
-		Tree tree = new Tree();
+		if (s.get(s.size() - 1).equals(";")) {
 
-		for (int i = s.size() - 1; i >= 0; i--) {
-			switch (s.get(i)) {
-			case ")":
-				currentHeight++;
-				maxHeight = Math.max(maxHeight, currentHeight);
-				break;
+			s.remove(s.get(s.size() - 1));
+			parse_sexpr(this.tree.root, s);
+			return this.tree;
 
-			case "(":
-				currentHeight--;
-				if (currentHeight == 0) {
-					return null;
-				}
-				break;
+		}
+		return null;
 
-			case ";":
-				if (i == s.size() - 1) {
-					rootError = false;
-					currentHeight++;
-					maxHeight++;
-				} else {
-					rootError = true;
-				}
-
-				if (rootError) {
-					return null;
-				}
-				
-				break;
-			case ":":
-				break;
-			case ",":
-				break;
-			default:
-				leaves++;
-				break;
-
+	}
+	
+	public ArrayList<String> parse_sexpr(Tree.treeNode node, ArrayList<String> s) {
+		if (s.get(0).equals("(")) {
+			s.remove(0);
+			node.insertChild();
+			s = parse_sexpr(node.get_child(0), s);
+			if (s.get(0).equals(",")) {
+				s.remove(0);
+			} else {
+				return null;
 			}
-		}
-		
-		if (currentHeight != 1) {
+
+			node.insertChild();
+			s = parse_sexpr(node.get_child(1), s);
+			if (s.get(0).equals(")")) {
+				s.remove(0);
+			} else {
+				return null;
+			}
+			return s;
+
+		} else if (!s.get(0).equals(",") && !s.get(0).equals(":") && !s.get(0).equals(")") && !s.get(0).equals(";")) {
+
+			s.remove(0);
+			return s;
+		} else {
 			return null;
+
 		}
-		
-		tree.setHeight(maxHeight);
-		tree.setLeaves(leaves);
-		return tree;
 	}
 
 }
