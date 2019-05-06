@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Lexer {
 	String inputString;
-	String searchString = ",();:[] \n\t";
+	String searchString = ",();:[] ";
 
 	/**
 	 * 
