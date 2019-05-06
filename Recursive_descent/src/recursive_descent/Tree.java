@@ -6,14 +6,25 @@ public class Tree {
 	treeNode root;
 	int height;
 	int leaves;
+	boolean errorFlag;
+	
+	/**
+	 * Class for a tree.
+	 */
 	
 	public Tree() {
 		this.root = new treeNode();
+		this.errorFlag = false;
 	}
 	
 	public int height() {
 		return height(this.root);
 	}
+	/**
+	 * recursively counts the max height of the tree, using the max function.
+	 * @param node
+	 * @return
+	 */
 	
 	public int height(treeNode node) {
 		if (node.n_children() == 0) {
@@ -25,6 +36,11 @@ public class Tree {
 	public int n_leaves() {
 		return n_leaves(this.root);
 	}
+	/**
+	 * Counts the number of leaves in the tree.
+	 * @param node
+	 * @return
+	 */
 	
 	public int n_leaves(treeNode node) {
 		if (node.n_children() == 0) {
@@ -35,8 +51,15 @@ public class Tree {
 		}
 	}
 	
+	public void setError() {
+		this.errorFlag = true;
+	}
 	
-	
+	/**
+	 * Class for a tree node. uses ArrayList for children.
+	 * 
+	 *
+	 */
 	public class treeNode {
 		String value;
 		ArrayList<treeNode> children;
@@ -53,10 +76,18 @@ public class Tree {
 		public treeNode get_child(int i) {
 			return children.get(i);
 		}
+		
+		/**
+		 * create a new child to the current node.
+		 */
 		public void insertChild() {
 			
 			this.children.add(new treeNode());
 		}
+		/**
+		 * set the value of the current node. Only used on leafs.
+		 * @param s
+		 */
 		public void setNode(String s) {
 			this.value = s;
 		}

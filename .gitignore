@@ -21,3 +21,11 @@ Recursive_descent/.settings/
 
 
 Recursive_descent/src/recursive_descent/ideér.txt
+
+Recursive_descent/src/recursive_descent/test/
+Recursive_descent/src/recursive_descent/bad1.tree
+Recursive_descent/src/recursive_descent/bad2.tree
+Recursive_descent/src/recursive_descent/bad3.tree
+Recursive_descent/src/recursive_descent/eggs.tree
+Recursive_descent/src/recursive_descent/two.tree
+
