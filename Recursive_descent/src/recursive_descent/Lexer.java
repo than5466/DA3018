@@ -36,7 +36,7 @@ public class Lexer {
 	 * An ArrayList, with each element being a leaf (as a string), or one of the special characters.
 	 */
 
-	public ArrayList<String> tokens(String s) {
+	private ArrayList<String> tokens(String s) {
 		ArrayList<String> lexedList = new ArrayList<String>();
 		boolean commentStatus = false;   // When this is set to true, nothing is saved until it is set to false again.
 		int j;

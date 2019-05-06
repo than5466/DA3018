@@ -94,7 +94,7 @@ public class TreeParser {
 				this.tree.setError();     // The string didn't match the expected. Error.
 				return null;
 			}
-		} catch (Exception e) {
+		} catch (IndexOutOfBoundsException e) {
 			this.tree.setError();         // Index error.
 			return null;
 		}

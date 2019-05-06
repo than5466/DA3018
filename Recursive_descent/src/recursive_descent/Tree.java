@@ -26,7 +26,7 @@ public class Tree {
 	 * @return
 	 */
 	
-	public int height(treeNode node) {
+	private int height(treeNode node) {
 		if (node.n_children() == 0) {
 			return 1;
 		}
@@ -42,7 +42,7 @@ public class Tree {
 	 * @return
 	 */
 	
-	public int n_leaves(treeNode node) {
+	private int n_leaves(treeNode node) {
 		if (node.n_children() == 0) {
 			return 1;
 		}
