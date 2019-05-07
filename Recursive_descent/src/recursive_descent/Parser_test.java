@@ -96,8 +96,18 @@ class Parser_test {
 	void test() {
 		Lexer a = new Lexer("((a,b), (c ,d));[oviktigt]");
 		Lexer b = new Lexer("([kommentar](a,b),[En liten kommentar] (c ,d));");
+		Lexer c = new Lexer("");
+		Lexer d = new Lexer("(a,b)(c,d);");
+		TreeParser parser = new TreeParser();
+		Tree p = parser.parse(c.tokens());
+		TreeParser P1 = new TreeParser();
+		Tree p1 = parser.parse(c.tokens());
 		
 		assertEquals(a.tokens(),b.tokens());
+		assertEquals(14,a.tokens().size());
+		assertEquals(0, c.tokens().size());
+		assertEquals(null, p);
+		assertEquals(null,p1);
 	}
 
 }

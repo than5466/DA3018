@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
 	public static void main(String[] args) {
-		Lexer a = new Lexer("((a,b), (c ,d))(a,b);");
+		Lexer a = new Lexer("");
 		ArrayList<String> b = a.tokens();
 
 		System.out.println(b);

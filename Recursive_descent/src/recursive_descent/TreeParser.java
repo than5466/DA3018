@@ -21,6 +21,8 @@ public class TreeParser {
 	 */
 
 	public Tree parse(ArrayList<String> s) {
+		
+		try {
 
 		if (s.get(s.size() - 1).equals(";")) {  // Makes sure that there is a root before starting.
 
@@ -40,7 +42,9 @@ public class TreeParser {
 
 		}
 		return null;   // There was no root, or the root was misplaced.
-
+		} catch (IndexOutOfBoundsException e){   // The lexer returns an arrayList containing no elements
+			return null;
+		}
 	}
 	
 	/**
