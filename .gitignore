@@ -28,4 +28,12 @@ Recursive_descent/src/recursive_descent/bad2.tree
 Recursive_descent/src/recursive_descent/bad3.tree
 Recursive_descent/src/recursive_descent/eggs.tree
 Recursive_descent/src/recursive_descent/two.tree
+Graph_diameters/bin/
+
+Graph_diameters/.classpath
+Graph_diameters/.gitignore
+Graph_diameters/.project
+Graph_diameters/.settings/
+
+
 

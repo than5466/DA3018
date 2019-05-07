@@ -1,12 +1,10 @@
 package calculator;
 
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.util.*;
-
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class GraphicMain extends JFrame{
 	JTextField text1, text2;
 	JLabel label1, label2;
