@@ -28,8 +28,12 @@ public class TreeParser {
 			if (s.size() == 0) {        // The empty tree is not allowed.
 				return null;
 			}
-			parse_sexpr(this.tree.root, s);  // Run the parsing method. tree is a treestructure after this.
+			s = parse_sexpr(this.tree.root, s);  // Run the parsing method. tree is a treestructure after this.
 			if (this.tree.errorFlag) {     // Error occured?
+				return null;
+			}
+			if (s.size() != 0) {     // The grammar expects the expression to be over, but more information follows.
+									 // i.e all the parenthesis are closed, yet the Lexer contains more information.
 				return null;
 			}
 			return this.tree;
@@ -42,7 +46,8 @@ public class TreeParser {
 	/**
 	 * The expected grammar of expressions is on the form
 	 * 
-	 * sexpr = LEAF | '(' sexpr ',' ')'
+	 * sexpr = LEAF
+	 * 		   | '(' sexpr ',' sexpr ')'
 	 * 
 	 * This method makes sure that all of the expressions follow the norm above, using recursion.
 	 * 
@@ -62,6 +67,7 @@ public class TreeParser {
 			s = parse_sexpr(node.get_child(1), s); // Since binary, another sexpr follows inside a parenthesis.
 			
 			s = expectedChar(s,")"); // Lastly an opening parenthesis must end with a closing parenthesis.
+			
 			return s;             // returns an empty ArrayList, not used for anything.
 
 		} else if (!s.get(0).equals(",") && !s.get(0).equals(":") && !s.get(0).equals(")") && !s.get(0).equals(";")) {
