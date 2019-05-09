@@ -31,7 +31,7 @@ public class TreeParser {
 				return null;
 			}
 			s = parse_sexpr(this.tree.root, s);  // Run the parsing method. tree is a treestructure after this.
-			if (this.tree.errorFlag) {     // Error occured?
+			if (this.tree.errorFlag) {     // Error occured.
 				return null;
 			}
 			if (s.size() != 0) {     // The grammar expects the expression to be over, but more information follows.
@@ -42,7 +42,7 @@ public class TreeParser {
 
 		}
 		return null;   // There was no root, or the root was misplaced.
-		} catch (IndexOutOfBoundsException e){   // The lexer returns an arrayList containing no elements
+		} catch (IndexOutOfBoundsException e){   // The ArrayList contains no elements.
 			return null;
 		}
 	}
