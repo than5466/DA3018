@@ -84,7 +84,7 @@ public class Lexer {
 		if (s.length() == 0)
 			return false;
 		else
-			return s.charAt(0) == c || containsChar(s.substring(1), c);  // logical or, if one comparison is true, return true.
+			return s.charAt(0) == c || containsChar(s.substring(1), c);  // logical or. If one comparison is true, return true.
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class Lexer {
 
 	public int nextIndex(String s) {
 		for (int i = 1; i < s.length(); i++) {
-			if (this.containsChar(this.searchString, s.charAt(i))) {
+			if (containsChar(this.searchString, s.charAt(i))) {
 				return i;
 			}
 		}

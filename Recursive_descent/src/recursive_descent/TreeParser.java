@@ -63,11 +63,11 @@ public class TreeParser {
 	public ArrayList<String> parse_sexpr(Tree.treeNode node, ArrayList<String> s) {
 		if (s.get(0).equals("(")) {   // According to the grammar, left parenthesis is one of the allowed start of expressions.
 			s.remove(0);              // Remove the parenthesis.
-			node.insertChild();       // Create a new child to the current node.  
+			node.addChild();       // Create a new child to the current node.  
 			s = parse_sexpr(node.get_child(0), s);  // According to grammar, left parenthesis is followed by another sexpr.
 			s = expectedChar(s,",");  // after one sexpr inside a parenthesis, a comma follows.
 			
-			node.insertChild();       // Create another child to the current node, since the tree is binary.
+			node.addChild();       // Create another child to the current node, since the tree is binary.
 			s = parse_sexpr(node.get_child(1), s); // Since binary, another sexpr follows inside a parenthesis.
 			
 			s = expectedChar(s,")"); // Lastly an opening parenthesis must end with a closing parenthesis.
@@ -76,7 +76,7 @@ public class TreeParser {
 
 		} else if (!s.get(0).equals(",") && !s.get(0).equals(":") && !s.get(0).equals(")") && !s.get(0).equals(";")) {
 			// None of these signs are allowed to begin sexpr according to grammar, in this case we're on a node.
-			node.setNode(s.get(0)); //save the value of the node
+			node.setValue(s.get(0)); //save the value of the node
 			s.remove(0); // Remove the node.
 			return s;
 		} else {

@@ -80,7 +80,7 @@ public class Tree {
 		/**
 		 * create a new child to the current node.
 		 */
-		public void insertChild() {
+		public void addChild() {
 			
 			this.children.add(new treeNode());
 		}
@@ -88,7 +88,7 @@ public class Tree {
 		 * set the value of the current node. Only used on leafs.
 		 * @param s
 		 */
-		public void setNode(String s) {
+		public void setValue(String s) {
 			this.value = s;
 		}
 	}
