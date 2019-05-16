@@ -66,12 +66,16 @@ public class TreeParser {
 			node.addChild();       // Create a new child to the current node.  
 			s = parse_expr(node.get_child(0), s);  // According to grammar, left parenthesis is followed by another expr.
 			s = expectedChar(s,",");  // after one expr inside a parenthesis, a comma follows.
+			if (this.tree.errorFlag) {
+				return null;
+			}
 			
-			node.addChild();       // Create another child to the current node, since the tree is binary.
-			s = parse_expr(node.get_child(1), s); // Since binary tree, another expr follows inside a parenthesis.
+			node.addChild();    // Create another child to the current node, since the tree is binary.
 			
 			s = expectedChar(s,")"); // Lastly an opening parenthesis must end with a closing parenthesis.
-			
+			if (this.tree.errorFlag) {
+				return null;
+			}
 			return s;             // returns an empty ArrayList, not used for anything.
 
 		} else if (!s.get(0).equals(",") && !s.get(0).equals(":") && !s.get(0).equals(")") && !s.get(0).equals(";")) {
