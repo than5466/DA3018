@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
 	public static void main(String[] args) {
-		Lexer a = new Lexer("(a,b);");
+		Lexer a = new Lexer("(a,(b,(c,(d,(e,f)))));");
 		ArrayList<String> b = a.tokens();
 
 		System.out.println(b);
@@ -12,14 +12,14 @@ public class Main {
 		TreeParser c = new TreeParser();
 		Tree x = c.parse(b);
 		
-		try {
+		if (x != null ) {
 
 			System.out.println(x.height());
 			
 			System.out.print(x.n_leaves());
 			
 		}
-		catch (Exception e) {
+		else {
 			System.out.println("Error,error.");
 		}
 	}

@@ -29,7 +29,7 @@ public class Lexer {
 	 * This method has time complexity O(n). All the methods used each iteration
 	 * in the while loop, has a constant time complexity, except for nextIndex function. And the while loop
 	 * is run at most n times. The nextIndex function has a time complexity of O(n), however, when used
-	 * in this method, the variable i will increase linearly with n, and so the time complexity is
+	 * in this method, the variable j will increase linearly with n, and so the time complexity is
 	 * still O(n).
 	 * @param s
 	 * @return

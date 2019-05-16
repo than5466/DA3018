@@ -30,7 +30,7 @@ public class TreeParser {
 			if (s.size() == 0) {        // The empty tree is not allowed.
 				return null;
 			}
-			s = parse_sexpr(this.tree.root, s);  // Run the parsing method. tree is a treestructure after this.
+			s = parse_expr(this.tree.root, s);  // Run the parsing method. tree is a treestructure after this.
 			if (this.tree.errorFlag) {     // Error occured.
 				return null;
 			}
@@ -50,8 +50,8 @@ public class TreeParser {
 	/**
 	 * The expected grammar of expressions is on the form
 	 * 
-	 * sexpr = LEAF
-	 * 		   | '(' sexpr ',' sexpr ')'
+	 * expr = LEAF
+	 * 		   | '(' expr ',' expr ')'
 	 * 
 	 * This method makes sure that all of the expressions follow the norm above, using recursion.
 	 * 
@@ -60,23 +60,23 @@ public class TreeParser {
 	 * @return
 	 */
 	
-	public ArrayList<String> parse_sexpr(Tree.treeNode node, ArrayList<String> s) {
+	public ArrayList<String> parse_expr(Tree.treeNode node, ArrayList<String> s) {
 		if (s.get(0).equals("(")) {   // According to the grammar, left parenthesis is one of the allowed start of expressions.
 			s.remove(0);              // Remove the parenthesis.
 			node.addChild();       // Create a new child to the current node.  
-			s = parse_sexpr(node.get_child(0), s);  // According to grammar, left parenthesis is followed by another sexpr.
-			s = expectedChar(s,",");  // after one sexpr inside a parenthesis, a comma follows.
+			s = parse_expr(node.get_child(0), s);  // According to grammar, left parenthesis is followed by another expr.
+			s = expectedChar(s,",");  // after one expr inside a parenthesis, a comma follows.
 			
 			node.addChild();       // Create another child to the current node, since the tree is binary.
-			s = parse_sexpr(node.get_child(1), s); // Since binary, another sexpr follows inside a parenthesis.
+			s = parse_expr(node.get_child(1), s); // Since binary tree, another expr follows inside a parenthesis.
 			
 			s = expectedChar(s,")"); // Lastly an opening parenthesis must end with a closing parenthesis.
 			
 			return s;             // returns an empty ArrayList, not used for anything.
 
 		} else if (!s.get(0).equals(",") && !s.get(0).equals(":") && !s.get(0).equals(")") && !s.get(0).equals(";")) {
-			// None of these signs are allowed to begin sexpr according to grammar, in this case we're on a node.
-			node.setValue(s.get(0)); //save the value of the node
+			// None of these signs are allowed to begin expr according to grammar, in this case we're on a node.
+			node.setValue(s.get(0)); //set the value of the leaf
 			s.remove(0); // Remove the node.
 			return s;
 		} else {

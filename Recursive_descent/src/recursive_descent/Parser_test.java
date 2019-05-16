@@ -95,13 +95,13 @@ class Parser_test {
 	@Test
 	void test() {
 		Lexer a = new Lexer("((a,b), (c ,d));[oviktigt]");
-		Lexer b = new Lexer("([kommentar](a,b),[En liten kommentar] (c ,d));");
+		Lexer b = new Lexer("([kommentar](a,b),[En till kommentar] (c ,d));");
 		Lexer c = new Lexer("");
-		Lexer d = new Lexer("(a,b)(c,d);");
+		Lexer d = new Lexer("(a,b) (c,d);");
 		TreeParser parser = new TreeParser();
 		Tree p = parser.parse(c.tokens());
 		TreeParser P1 = new TreeParser();
-		Tree p1 = parser.parse(c.tokens());
+		Tree p1 = P1.parse(d.tokens());
 		
 		assertEquals(a.tokens(),b.tokens());
 		assertEquals(14,a.tokens().size());

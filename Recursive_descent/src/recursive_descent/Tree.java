@@ -61,8 +61,8 @@ public class Tree {
 	 *
 	 */
 	public class treeNode {
-		String value;
-		ArrayList<treeNode> children;
+		private String value;
+		private ArrayList<treeNode> children;
 		
 		public treeNode() {
 			this.value = null;
@@ -74,7 +74,7 @@ public class Tree {
 		}
 		
 		public treeNode get_child(int i) {
-			return children.get(i);
+			return this.children.get(i);
 		}
 		
 		/**
@@ -90,6 +90,10 @@ public class Tree {
 		 */
 		public void setValue(String s) {
 			this.value = s;
+		}
+		
+		public String getValue() {
+			return this.value;
 		}
 	}
 	
