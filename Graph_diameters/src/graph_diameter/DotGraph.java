@@ -12,12 +12,15 @@ public class DotGraph<E> {
 		this.EdgeSet = new HashMap<E,LinkedList<E>>();
 	}
 	
-	public void addVertice(E n) {
+	private void addVertice(E n) {
 		this.EdgeSet.put(n,new LinkedList<E>());
 	}
 	
-	public void addEdge(E n,E m) {
-		this.EdgeSet.get(n).add(m);
+	private void addEdge(E n,E m) {
+		
+		if (!this.EdgeSet.get(n).contains(m)) {
+			this.EdgeSet.get(n).add(m);
+		}
 	}
 	
 	public void add(E n, E m) {
