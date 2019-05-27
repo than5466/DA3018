@@ -10,18 +10,27 @@ public class GraphDotIO {
 	private BufferedReader reader;
 	private DotGraph<String> graph;
 	private String compareString;
+	private String input;
 
 	/**
 	 * 
-	 * @param filename - name of the file to read
+	 * @param s - name of the file to read
 	 * @throws FileNotFoundException - A file with the given name is non-existent.
 	 */
 
-	public GraphDotIO(String filename) throws FileNotFoundException {
-		this.reader = new BufferedReader(new FileReader(
-				"/home/thoan741/Skrivbord/Programmering/DA3018/Graph_diameters/src/graph_diameter/" + filename));
-		this.graph = new DotGraph<String>();
-		this.compareString = " {};\t";
+	public GraphDotIO(String s) throws FileNotFoundException {
+		try {
+			this.reader = new BufferedReader(new FileReader(
+					"/home/thoan741/Skrivbord/Programmering/DA3018/Graph_diameters/src/graph_diameter/" + s));
+		} catch (FileNotFoundException e){
+			this.reader = null;
+		}
+		finally {
+
+			this.graph = new DotGraph<String>();
+			this.compareString = " {};\t";
+			this.input = s;
+		}
 
 	}
 
@@ -29,8 +38,12 @@ public class GraphDotIO {
 		String str;
 		String s = "";
 		ArrayList<String> LexedInput;
-		while ((str = reader.readLine()) != null) {
-			s += str;
+		if (this.reader == null) {
+			s = this.input;
+		} else {
+			while ((str = reader.readLine()) != null) {
+				s += str;
+			}
 		}
 		LexedInput = Lexer(s);
 		parse(LexedInput);
@@ -50,7 +63,7 @@ public class GraphDotIO {
 				Lexed.add(str);
 			}
 		}
-		System.out.println(Lexed);
+		System.out.println("Lexed expression:\t" + Lexed);
 		return Lexed;
 	}
 
@@ -112,17 +125,23 @@ public class GraphDotIO {
 	}
 
 	public static void main(String[] args) throws IOException {
-		try {
-			GraphDotIO x = new GraphDotIO("test3.dot");
+		if (args.length == 1) {
+			GraphDotIO x = new GraphDotIO(args[0]);
 			DotGraph<String> graph = x.read_dot();
 			if (graph != null) {
-				System.out.println(graph.GetEdgeSet());
+				System.out.println("Vertices and their edges: \t" + graph.GetGraph());
 			} else {
-				System.out.println("Det blev fel");
+				System.out.println("The given argument is neither an existing filename nor a correct expression.");
 			}
-		} catch (IOException e) {
-			System.out.println("Oj då, är du säker på att denna fil existerar?");
+
+		} else {
+			if (args.length == 0) {
+				System.out.println("No argument given");
+			} else {
+				System.out.println("Only one argument expected.");
+			}
 		}
+
 	}
 
 }

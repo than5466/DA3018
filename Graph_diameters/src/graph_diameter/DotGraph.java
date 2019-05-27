@@ -5,36 +5,36 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class DotGraph<E> {
-	private Map<E,LinkedList<E>> EdgeSet;
+	private Map<E,LinkedList<E>> graph;
 	
 
 	public DotGraph() {
-		this.EdgeSet = new HashMap<E,LinkedList<E>>();
+		this.graph = new HashMap<E,LinkedList<E>>();
 	}
 	
 	private void addVertice(E n) {
-		this.EdgeSet.put(n,new LinkedList<E>());
+		this.graph.put(n,new LinkedList<E>());
 	}
 	
 	private void addEdge(E n,E m) {
 		
-		if (!this.EdgeSet.get(n).contains(m)) {
-			this.EdgeSet.get(n).add(m);
+		if (!this.graph.get(n).contains(m)) {
+			this.graph.get(n).add(m);
 		}
 	}
 	
 	public void add(E n, E m) {
-		if (!this.EdgeSet.containsKey(n)) {
+		if (!this.graph.containsKey(n)) {
 			addVertice(n);
 		}
-		if (!this.EdgeSet.containsKey(m)) {
+		if (!this.graph.containsKey(m)) {
 			addVertice(m);
 		}
 		addEdge(n,m);
 	}
 	
-	public Map<E,LinkedList<E>> GetEdgeSet() {
-		return this.EdgeSet;
+	public Map<E,LinkedList<E>> GetGraph() {
+		return this.graph;
 	}
 
 }

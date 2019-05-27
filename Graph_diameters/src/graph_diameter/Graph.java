@@ -19,7 +19,7 @@ public class Graph {
 	private Queue<Integer> q;
 	private boolean connected;
 
-	private Map<Integer, LinkedList<Integer>> edges;
+	private Map<Integer, LinkedList<Integer>> graph;
 	private ArrayList<Integer> visited;
 
 	/**
@@ -27,7 +27,7 @@ public class Graph {
 	 */
 
 	public Graph() {
-		this.edges = new HashMap<Integer, LinkedList<Integer>>();
+		this.graph = new HashMap<Integer, LinkedList<Integer>>();
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class Graph {
 
 	public Graph(int n, double p) {
 		this.connected = true;
-		this.edges = new HashMap<Integer, LinkedList<Integer>>();
+		this.graph = new HashMap<Integer, LinkedList<Integer>>();
 		for (int i = 1; i <= n; i++) {
 			addVertice(i);
 		}
@@ -65,7 +65,7 @@ public class Graph {
 	 */
 
 	public void addVertice(int node) {
-		this.edges.put(node, new LinkedList<Integer>());
+		this.graph.put(node, new LinkedList<Integer>());
 		this.V++;
 	}
 
@@ -77,8 +77,8 @@ public class Graph {
 	 */
 
 	public void addEdge(int node1, int node2) {
-		this.edges.get(node1).add(node2);
-		this.edges.get(node2).add(node1);
+		this.graph.get(node1).add(node2);
+		this.graph.get(node2).add(node1);
 
 	}
 
@@ -123,7 +123,7 @@ public class Graph {
 
 		int current;
 		int size;
-		for (int i : this.edges.get(start)) {
+		for (int i : this.graph.get(start)) {
 			queue.enqueue(i);
 			this.visited.add(i);
 
@@ -132,7 +132,7 @@ public class Graph {
 			size = queue.size();
 			while (size > 0) {
 				current = queue.dequeue();
-				for (int i : this.edges.get(current)) {
+				for (int i : this.graph.get(current)) {
 					if (!this.visited.contains(i)) {
 						queue.enqueue(i);
 						this.visited.add(i);
@@ -214,7 +214,7 @@ public class Graph {
 	public static void main(String[] args) {
 		Graph x = new Graph(25, 0.1);
 
-		for (LinkedList<Integer> a : x.edges.values()) {
+		for (LinkedList<Integer> a : x.graph.values()) {
 			System.out.println(a);
 		}
 		Map<Integer, Integer> a = x.distance(5);
