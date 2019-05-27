@@ -6,7 +6,9 @@ import java.util.Map;
 
 public class DotGraph<E> {
 	private Map<E,LinkedList<E>> graph;
-	
+	/**
+	 * graph structure used in the GraphDotIO class.
+	 */
 
 	public DotGraph() {
 		this.graph = new HashMap<E,LinkedList<E>>();
@@ -23,6 +25,12 @@ public class DotGraph<E> {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param n
+	 * @param m
+	 * add an edge from the node n to the node m.
+	 */
 	public void add(E n, E m) {
 		if (!this.graph.containsKey(n)) {
 			addVertice(n);

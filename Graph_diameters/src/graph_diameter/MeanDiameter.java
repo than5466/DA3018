@@ -11,6 +11,13 @@ public class MeanDiameter {
 	private Map<Integer, Map<Integer, Integer>> map;
 	private Map<Double, Double> mean;
 	private int size;
+	
+	/**
+	 * 
+	 * @param n - the size of the graph where we calculate the mean diameter.
+	 * calculates the mean diameter over 100 times. Has time complexity n*O(E+V)*C. O(E+V) comes from distance, which is called
+	 * n*C times, where C in this case is a big number.
+	 */
 
 	public MeanDiameter(int n) {
 		DecimalFormat dec = new DecimalFormat("#0.0");
@@ -19,7 +26,6 @@ public class MeanDiameter {
 		double x = 0.1;
 		this.mean = new HashMap<Double, Double>();
 		ArrayList<Integer> list;
-		ArrayList<Integer> l;
 		this.size = n;
 		while (x < 1) {
 			map = new HashMap<Integer, Map<Integer, Integer>>();
@@ -50,20 +56,15 @@ public class MeanDiameter {
 
 			x = Double.parseDouble(dec.format(x).replace(',', '.'));
 
-			/*
-			 * graph = new Graph(n, x); for (int i = 1; i <= n; i++) { map.put(i,
-			 * graph.distance(i)); if (!graph.connected()) { map.remove(i); break; }
-			 * 
-			 * } if (graph.connected()) { mean.put(x, calculateMean());
-			 * 
-			 * } x = x + 0.1;
-			 * 
-			 * x = Double.parseDouble(dec.format(x).replace(',', '.'));
-			 * 
-			 */
-
 		}
 	}
+	
+	/**
+	 * 
+	 * @param map
+	 * @return
+	 * the max value in the map.
+	 */
 
 	private int max(Map<Integer, Integer> map) {
 

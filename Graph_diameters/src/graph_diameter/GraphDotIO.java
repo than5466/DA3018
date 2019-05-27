@@ -33,6 +33,13 @@ public class GraphDotIO {
 		}
 
 	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws IOException
+	 * returns a graph made from the input, with the help of the lexer and parser definied below.
+	 */
 
 	public DotGraph<String> read_dot() throws IOException {
 		String str;
@@ -50,7 +57,13 @@ public class GraphDotIO {
 		return this.graph;
 
 	}
-
+	
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 * return a lexed expression.
+	 */
 	private ArrayList<String> Lexer(String s) {
 		ArrayList<String> Lexed = new ArrayList<String>();
 		int n;
@@ -66,6 +79,10 @@ public class GraphDotIO {
 		System.out.println("Lexed expression:\t" + Lexed);
 		return Lexed;
 	}
+	
+	/*
+	 * return true if a substring contains a certain character.
+	 */
 
 	private boolean contains(char c, String s) {
 		if (s.length() == 0) {
@@ -83,6 +100,14 @@ public class GraphDotIO {
 		}
 		return s.length();
 	}
+	
+	/**
+	 * 
+	 * @param s
+	 * parsing the expression.
+	 * the expression should be on the form: "str" "str" "{" expr "}",
+	 * where  expr = "node" "--" "node" ";" || nothing
+	 */
 
 	private void parse(ArrayList<String> s) {
 		if ((s.size() % 4) != 0 || s.size() < 4 || !s.get(2).equals("{") || !s.get(s.size() - 1).equals("}")) {
@@ -111,12 +136,20 @@ public class GraphDotIO {
 
 		}
 	}
+	
+	/**
+	 * 
+	 * @param V1
+	 * @param V2
+	 * @return
+	 * true if V1 or V2 is not a node.
+	 */
 
 	public boolean checkVertices(String V1, String V2) {
 		boolean checkFirst;
 		boolean checkSecond;
-		checkFirst = contains(V1.charAt(0), this.compareString);
-		checkSecond = contains(V2.charAt(0), this.compareString);
+		checkFirst = contains(V1.charAt(0), compareString);
+		checkSecond = contains(V2.charAt(0), compareString);
 		return checkFirst || checkSecond;
 	}
 
